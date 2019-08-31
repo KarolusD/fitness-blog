@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Karolus Starter`,
+    title: `Fitness Blog`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
     author: `@KarolusD`,
   },
@@ -10,12 +10,12 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-root-import',
       options: {
+        src: path.join(__dirname, 'src'),
         assets: path.join(__dirname, 'src/assets'),
         components: path.join(__dirname, 'src/components'),
         pages: path.join(__dirname, 'src/pages'),
         templates: path.join(__dirname, 'src/templates'),
         utils: path.join(__dirname, 'src/utils'),
-        src: path.join(__dirname, 'src'),
       },
     },
     {
