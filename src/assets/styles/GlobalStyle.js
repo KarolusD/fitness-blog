@@ -21,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
   #___gatsby {
     overflow-x: hidden;
   }
+  
 `
 
 export default GlobalStyle

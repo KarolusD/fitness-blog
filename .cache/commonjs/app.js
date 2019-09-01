@@ -1,38 +1,44 @@
-"use strict";
+'use strict'
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+var _interopRequireDefault = require('@babel/runtime/helpers/interopRequireDefault')
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+var _react = _interopRequireDefault(require('react'))
 
-var _react = _interopRequireDefault(require("react"));
+var _reactDom = _interopRequireDefault(require('react-dom'))
 
-var _reactDom = _interopRequireDefault(require("react-dom"));
+var _domready = _interopRequireDefault(require('@mikaelkristiansson/domready'))
 
-var _domready = _interopRequireDefault(require("@mikaelkristiansson/domready"));
+var _socketIo = _interopRequireDefault(require('./socketIo'))
 
-var _socketIo = _interopRequireDefault(require("./socketIo"));
+var _emitter = _interopRequireDefault(require('./emitter'))
 
-var _emitter = _interopRequireDefault(require("./emitter"));
+var _apiRunnerBrowser = require('./api-runner-browser')
 
-var _apiRunnerBrowser = require("./api-runner-browser");
+var _loader = require('./loader')
 
-var _loader = _interopRequireWildcard(require("./loader"));
+var _devLoader = _interopRequireDefault(require('./dev-loader'))
 
-var _syncRequires = _interopRequireDefault(require("./sync-requires"));
+var _syncRequires = _interopRequireDefault(require('./sync-requires'))
 
-var _matchPaths = _interopRequireDefault(require("./match-paths.json"));
+var _matchPaths = _interopRequireDefault(require('./match-paths.json'))
 
-window.___emitter = _emitter.default;
-(0, _loader.setApiRunnerForLoader)(_apiRunnerBrowser.apiRunner); // Let the site/plugins run code very early.
-
-(0, _apiRunnerBrowser.apiRunnerAsync)(`onClientEntry`).then(() => {
+// Generated during bootstrap
+window.___emitter = _emitter.default
+const loader = new _devLoader.default(
+  _syncRequires.default,
+  _matchPaths.default
+)
+;(0, _loader.setLoader)(loader)
+loader.setApiRunner(_apiRunnerBrowser.apiRunner)
+window.___loader = _loader.publicLoader // Let the site/plugins run code very early.
+;(0, _apiRunnerBrowser.apiRunnerAsync)(`onClientEntry`).then(() => {
   // Hook up the client to socket.io on server
-  const socket = (0, _socketIo.default)();
+  const socket = (0, _socketIo.default)()
 
   if (socket) {
     socket.on(`reload`, () => {
-      window.location.reload();
-    });
+      window.location.reload()
+    })
   }
   /**
    * Service Workers are persistent by nature. They stick around,
@@ -43,28 +49,35 @@ window.___emitter = _emitter.default;
    * Let's warn if we find service workers in development.
    */
 
-
   if (`serviceWorker` in navigator) {
     navigator.serviceWorker.getRegistrations().then(registrations => {
-      if (registrations.length > 0) console.warn(`Warning: found one or more service workers present.`, `If your site isn't behaving as expected, you might want to remove these.`, registrations);
-    });
+      if (registrations.length > 0)
+        console.warn(
+          `Warning: found one or more service workers present.`,
+          `If your site isn't behaving as expected, you might want to remove these.`,
+          registrations
+        )
+    })
   }
 
-  const rootElement = document.getElementById(`___gatsby`);
-  const renderer = (0, _apiRunnerBrowser.apiRunner)(`replaceHydrateFunction`, undefined, _reactDom.default.render)[0];
+  const rootElement = document.getElementById(`___gatsby`)
+  const renderer = (0, _apiRunnerBrowser.apiRunner)(
+    `replaceHydrateFunction`,
+    undefined,
+    _reactDom.default.render
+  )[0]
+  Promise.all([
+    loader.loadPage(`/dev-404-page/`),
+    loader.loadPage(`/404.html`),
+    loader.loadPage(window.location.pathname),
+  ]).then(() => {
+    const preferDefault = m => (m && m.default) || m
 
-  _loader.default.addDevRequires(_syncRequires.default);
-
-  _loader.default.addMatchPaths(_matchPaths.default);
-
-  Promise.all([_loader.default.loadPage(`/dev-404-page/`), _loader.default.loadPage(`/404.html`), _loader.default.loadPage(window.location.pathname)]).then(() => {
-    const preferDefault = m => m && m.default || m;
-
-    let Root = preferDefault(require(`./root`));
-    (0, _domready.default)(() => {
+    let Root = preferDefault(require(`./root`))
+    ;(0, _domready.default)(() => {
       renderer(_react.default.createElement(Root, null), rootElement, () => {
-        (0, _apiRunnerBrowser.apiRunner)(`onInitialClientRender`);
-      });
-    });
-  });
-});
+        ;(0, _apiRunnerBrowser.apiRunner)(`onInitialClientRender`)
+      })
+    })
+  })
+})

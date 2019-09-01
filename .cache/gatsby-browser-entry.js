@@ -1,5 +1,5 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from 'react'
+import PropTypes from 'prop-types'
 import Link, {
   withPrefix,
   withAssetPrefix,
@@ -8,8 +8,11 @@ import Link, {
   replace,
   navigateTo,
   parsePath,
-} from "gatsby-link"
-import PageRenderer from "./public-page-renderer"
+} from 'gatsby-link'
+import PageRenderer from './public-page-renderer'
+import loader from './loader'
+
+const prefetchPathname = loader.enqueue
 
 const StaticQueryContext = React.createContext({})
 
@@ -95,4 +98,5 @@ export {
   StaticQuery,
   PageRenderer,
   useStaticQuery,
+  prefetchPathname,
 }

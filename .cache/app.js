@@ -1,16 +1,23 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import domReady from "@mikaelkristiansson/domready"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import domReady from '@mikaelkristiansson/domready'
 
-import socketIo from "./socketIo"
-import emitter from "./emitter"
-import { apiRunner, apiRunnerAsync } from "./api-runner-browser"
-import loader, { setApiRunnerForLoader } from "./loader"
-import syncRequires from "./sync-requires"
-import matchPaths from "./match-paths.json"
+import socketIo from './socketIo'
+import emitter from './emitter'
+import { apiRunner, apiRunnerAsync } from './api-runner-browser'
+import { setLoader, publicLoader } from './loader'
+import DevLoader from './dev-loader'
+import syncRequires from './sync-requires'
+// Generated during bootstrap
+import matchPaths from './match-paths.json'
 
 window.___emitter = emitter
-setApiRunnerForLoader(apiRunner)
+
+const loader = new DevLoader(syncRequires, matchPaths)
+setLoader(loader)
+loader.setApiRunner(apiRunner)
+
+window.___loader = publicLoader
 
 // Let the site/plugins run code very early.
 apiRunnerAsync(`onClientEntry`).then(() => {
@@ -49,8 +56,6 @@ apiRunnerAsync(`onClientEntry`).then(() => {
     ReactDOM.render
   )[0]
 
-  loader.addDevRequires(syncRequires)
-  loader.addMatchPaths(matchPaths)
   Promise.all([
     loader.loadPage(`/dev-404-page/`),
     loader.loadPage(`/404.html`),

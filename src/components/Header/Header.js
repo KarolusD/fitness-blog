@@ -10,9 +10,10 @@ const FixedHeader = styled.header`
   position: fixed;
   top: 0;
   left: 0;
+  padding: 20px 10%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   width: 100vw;
   height: 80px;
   background-color: ${({ theme }) => theme.white};

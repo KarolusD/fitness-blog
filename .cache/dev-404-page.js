@@ -1,6 +1,6 @@
-import React from "react"
-import PropTypes from "prop-types"
-import { graphql, Link } from "gatsby"
+import React from 'react'
+import PropTypes from 'prop-types'
+import { graphql, Link } from 'gatsby'
 
 class Dev404Page extends React.Component {
   static propTypes = {
@@ -92,9 +92,7 @@ class Dev404Page extends React.Component {
             <h2>
               Pages (
               {this.state.pagePaths.length != this.state.initPagePaths.length
-                ? `${this.state.pagePaths.length}/${
-                    this.state.initPagePaths.length
-                  }`
+                ? `${this.state.pagePaths.length}/${this.state.initPagePaths.length}`
                 : this.state.initPagePaths.length}
               )
             </h2>
