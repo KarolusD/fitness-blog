@@ -7,3 +7,5 @@ node_modules
 package-lock.json
 .yarn-integrity
 .env
+# Local Netlify folder
+.netlify
