@@ -4,3 +4,6 @@ node_modules
 .cache
 .env.development
 .DS_Store
+package-lock.json
+.yarn-integrity
+.env
