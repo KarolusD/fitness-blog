@@ -1,23 +1,31 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { Link } from 'gatsby'
-import Scrollspy from 'react-scrollspy'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import styled, { keyframes, css } from 'styled-components'
+import { Link as GatsbyLink } from 'gatsby'
+import { Link } from 'react-scroll'
+import { Location } from '@reach/router'
 
-const Nav = styled.nav`
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin-top: 80px;
-  width: 100vw;
-  height: calc(100vh - 80px);
-  background-color: ${({ theme }) => theme.white};
-  transform: translateX(${({ isOpen }) => (isOpen ? '0' : '100%')});
-  transition: transform 300ms ease-out, background-color 300ms ease-out;
+const navItemActive = keyframes`
+  0% {
+    transform: translate(164px, -252px) rotate(45deg);
+  }
+
+  100% {
+    transform: translate(16px, -108px) rotate(45deg);
+  }
 `
 
-const NavList = styled(Scrollspy)`
+const Nav = styled.nav`
+  position: relative;
+  display: none;
+  top: 0;
+  right: 0;
+
+  ${({ theme }) => theme.mq.desktop} {
+    display: block;
+  }
+`
+
+const NavList = styled.ul`
   position: relative;
   top: 0;
   left: 0;
@@ -27,8 +35,8 @@ const NavList = styled(Scrollspy)`
   height: 100%;
   list-style-type: none;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-end;
   align-content: center;
   align-items: center;
 `
@@ -38,84 +46,116 @@ const ListItem = styled.li`
   margin: 8%;
   cursor: pointer;
 
-  &.show-enter {
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-
-  &.show-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: ${({ delay }) =>
-      `transform 300ms ${delay} cubic-bezier(.48,1.15,.57,1.15), opacity 300ms ${delay} ease-out`};
-  }
-
-  &.show-exit {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  &.show-exit-active {
-    opacity: 0;
-    transition: opacity 200ms ease-in;
+  &.active {
+    a {
+      color: ${({ theme }) => theme.blue};
+      transition: color 600ms 200ms ease-out;
+      ::before {
+        z-index: -1;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: calc(100% + 16px);
+        height: 180px;
+        background: linear-gradient(
+          180deg,
+          ${({ theme }) => theme.azure},
+          rgba(152, 186, 255, 0)
+        );
+        opacity: 0.5;
+        transform: translate(16px, -108px) rotate(45deg);
+        animation: ${navItemActive} 800ms 200ms ease-out both;
+      }
+    }
   }
 `
 
-const ItemLink = styled(Link)`
+const linkStyles = css`
   padding: 8px;
   text-decoration: none;
   text-transform: lowercase;
   font-family: ${({ theme }) => theme.font.family.ms};
   font-weight: ${({ theme }) => theme.font.weight.semibold};
   color: ${({ theme }) => theme.black};
+  white-space: nowrap;
 
   &.active {
     color: ${({ theme }) => theme.blue};
   }
 `
 
-const navListItems = ['home', 'o mnie', 'oferta', 'blog', 'kontakt']
+const ItemLink = styled(Link)`
+  ${linkStyles}
+`
 
-const Menu = ({ isOpen, handleLinkClick }) => {
-  return (
-    <TransitionGroup component={null}>
-      <Nav isOpen={isOpen}>
-        <NavList items={navListItems} currentClassName="active" offset={-300}>
-          {navListItems.map((item, index) => (
-            <CSSTransition
-              key={`${item}`}
-              in={isOpen}
-              classNames="show"
-              timeout={1000}
-              unmountOnExit
+const ItemLinkSubpage = styled(GatsbyLink)`
+  ${linkStyles}
+`
+
+const menuItems = ['home', 'o-mnie', 'oferta', 'blog', 'kontakt']
+
+const IfMenuLinkIsSubpage = ({ location }) => {
+  if (location == '/') {
+    let homePageItems = menuItems.map(item => {
+      if (item !== 'blog') {
+        return (
+          <ListItem key={item}>
+            <ItemLink
+              to={item}
+              spy
+              smooth
+              hashSpy
+              offset={-80}
+              duration={500}
+              delay={0}
+              isDynamic
+              activeClass="active"
             >
-              <ListItem delay={`${300 + index * 80}ms`}>
-                <ItemLink
-                  to={
-                    item != 'blog'
-                      ? `/#${item.replace(' ', '_')}`
-                      : `/${item.replace(' ', '_')}`
-                  }
-                  onClick={
-                    item != 'blog'
-                      ? e => handleLinkClick(e, `#${item.replace(' ', '_')}`)
-                      : null
-                  }
-                >
-                  {item}
-                </ItemLink>
-              </ListItem>
-            </CSSTransition>
-          ))}
-        </NavList>
-      </Nav>
-    </TransitionGroup>
-  )
+              {item.replace('-', ' ')}
+            </ItemLink>
+          </ListItem>
+        )
+      } else {
+        return (
+          <ListItem key={item}>
+            <ItemLinkSubpage to={`/${item}`} activeClassName="active">
+              {item.replace('-', ' ')}
+            </ItemLinkSubpage>
+          </ListItem>
+        )
+      }
+    })
+    return homePageItems
+  } else {
+    let subpageItems = menuItems.map(item => {
+      return (
+        <ListItem key={item}>
+          <ItemLinkSubpage
+            to={item == 'blog' ? `/${item}` : `/#${item}`}
+            activeClassName="active"
+          >
+            {item}
+          </ItemLinkSubpage>
+        </ListItem>
+      )
+    })
+    return subpageItems
+  }
 }
 
-Menu.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  handleLinkClick: PropTypes.func.isRequired,
+const Menu = () => {
+  return (
+    <Nav>
+      <NavList>
+        <Location>
+          {({ location }) => (
+            <IfMenuLinkIsSubpage location={location.pathname} />
+          )}
+        </Location>
+      </NavList>
+    </Nav>
+  )
 }
 
 export default Menu

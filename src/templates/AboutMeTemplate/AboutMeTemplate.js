@@ -4,7 +4,7 @@ const AboutMeTemplate = () => {
   return (
     <section
       style={{ width: '100vw', height: '100vh', paddingTop: '100px' }}
-      id="o_mnie"
+      id="o-mnie"
     >
       <p>siema jestem sekcja o mnie!</p>
     </section>

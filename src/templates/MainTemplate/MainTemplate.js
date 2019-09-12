@@ -21,12 +21,16 @@ const MainTemplate = ({ children, pageTitle }) => {
   )
 }
 
+MainTemplate.defaultProps = {
+  pageTitle: 'Strona KW',
+}
+
 MainTemplate.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-  pageTitle: PropTypes.string.isRequired,
+  pageTitle: PropTypes.string,
 }
 
 export default MainTemplate

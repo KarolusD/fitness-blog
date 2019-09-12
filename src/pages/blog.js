@@ -16,7 +16,7 @@ const blog = () => {
             content
             image {
               childImageSharp {
-                fixed(width: 200, height: 125) {
+                fixed(width: 175, height: 125) {
                   ...GatsbyImageSharpFixed
                 }
               }
@@ -36,7 +36,7 @@ const blog = () => {
           {blogQuery.allStrapiArticle.edges.map(post => (
             <li key={post.node.id}>
               <h2>
-                <Link to={`blog/${slugify(post.node.title)}`}>
+                <Link to={`/blog/${slugify(post.node.title)}`}>
                   {post.node.title}
                 </Link>
               </h2>

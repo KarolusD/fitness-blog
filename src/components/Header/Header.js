@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import Logo from 'components/Logo/Logo'
 import Hamburger from 'components/Hamburger/Hamburger'
+import MobileMenu from 'components/MobileMenu/MobileMenu'
 import Menu from 'components/Menu/Menu'
 import styled from 'styled-components'
-
-const scrollToElement = require('scroll-to-element')
 
 const FixedHeader = styled.header`
   position: fixed;
@@ -27,25 +26,16 @@ const Header = () => {
     setIsOpen(!isOpen)
   }
 
-  const handleLinkClick = (e, target) => {
-    if (typeof window !== 'undefined') {
-      if (window.location.pathname === '/') {
-        e.preventDefault()
-        scrollToElement(target, {
-          offset: -80,
-          ease: 'outCube',
-          duration: 1000,
-        })
-      }
-      setIsOpen(false)
-    }
+  const handleLinkClick = () => {
+    setIsOpen(false)
   }
 
   return (
     <FixedHeader>
       <Logo />
       <Hamburger isOpen={isOpen} onClick={toggleMobileMenu} />
-      <Menu isOpen={isOpen} handleLinkClick={handleLinkClick} />
+      <MobileMenu isOpen={isOpen} handleLinkClick={handleLinkClick} />
+      <Menu />
     </FixedHeader>
   )
 }
