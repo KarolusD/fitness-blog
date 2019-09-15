@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
@@ -73,11 +74,14 @@ const Image = props => (
   />
 )
 
+Image.defaultProps = {
+  style: {},
+}
+
 Image.propTypes = {
   alt: PropTypes.string.isRequired,
   filename: PropTypes.string.isRequired,
-  fluid: PropTypes.objectOf(PropTypes.array).isRequired,
-  style: PropTypes.objectOf(PropTypes.object).isRequired,
+  style: PropTypes.objectOf(PropTypes.object),
 }
 
 export default Image

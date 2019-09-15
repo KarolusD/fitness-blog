@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 import { Link } from 'gatsby'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Scrollspy from 'react-scrollspy'
+import Social from 'components/Social/Social'
 
 const Nav = styled.nav`
   position: fixed;
@@ -14,7 +15,7 @@ const Nav = styled.nav`
   background-color: ${({ theme }) => theme.bg};
   transform: translateX(${({ isOpen }) => (isOpen ? '0' : '100%')});
   transition: transform 300ms ease-out, background-color 300ms ease-out;
-  overflow: auto;
+  overflow: none;
   z-index: -1;
 
   ${({ theme }) => theme.mq.desktop} {
@@ -28,6 +29,7 @@ const NavList = styled(Scrollspy)`
   left: 0;
   margin: 0;
   padding: 0;
+  padding-top: 8%;
   width: 100%;
   height: 100%;
   list-style-type: none;
@@ -65,10 +67,9 @@ const ListItem = styled.li`
     transition: opacity 200ms ease-in;
   }
 
-  &.active {
-    a {
-      ${linkStylesActive}
-    }
+  &.active a {
+    color: ${({ theme }) => theme.blue};
+    transition: color 100ms 200ms ease-out;
   }
 `
 
@@ -86,15 +87,33 @@ const linkStyles = css`
   }
 `
 
-const linkStylesActive = css`
-  color: ${({ theme }) => theme.blue};
-  transition: color 100ms 200ms ease-out;
-`
-
 const ItemLink = styled(Link)`
   ${linkStyles}
   &.active {
-    ${linkStylesActive}
+    color: ${({ theme }) => theme.blue};
+    transition: color 100ms 200ms ease-out;
+  }
+`
+
+const StyledSocial = styled(Social)`
+  && {
+    ${({ theme }) => theme.mq.mobile} {
+      display: flex;
+      position: absolute;
+      left: calc(50% - 125px);
+      bottom: 32px;
+      width: 250px;
+      align-items: center;
+      justify-content: space-between;
+      align-content: center;
+      transition: transform 300ms 600ms ease-out, opacity 200ms 600ms ease-out;
+      opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
+      transform: translateY(${({ isOpen }) => (isOpen ? 0 : '-100px')});
+    }
+
+    ${({ theme }) => theme.mq.desktop} {
+      display: none;
+    }
   }
 `
 
@@ -130,6 +149,7 @@ const MobileMenu = ({ isOpen, handleLinkClick }) => {
               </CSSTransition>
             ))}
           </NavList>
+          <StyledSocial isOpen={isOpen} />
         </Nav>
       </>
     </TransitionGroup>

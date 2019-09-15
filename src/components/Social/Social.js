@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Icon from 'components/Icon/Icon'
 import fb from 'assets/images/fb-logo.svg'
@@ -30,9 +31,9 @@ const StyledLink = styled.a`
   color: ${({ theme }) => theme.black};
 `
 
-const Social = () => {
+const Social = ({ className }) => {
   return (
-    <StyledIcons>
+    <StyledIcons className={className}>
       <P>odwiedź mnie na:</P>
       <StyledLink target="_blank" href="http://www.facebook.com">
         <Icon src={fb} />
@@ -42,6 +43,14 @@ const Social = () => {
       </StyledLink>
     </StyledIcons>
   )
+}
+
+Social.defaultProps = {
+  className: '',
+}
+
+Social.propTypes = {
+  className: PropTypes.string,
 }
 
 export default Social

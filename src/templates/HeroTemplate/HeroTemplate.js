@@ -5,9 +5,12 @@ import Section from 'components/Section/Section'
 import extraShape01 from 'assets/images/hero-extra-shape-01.svg'
 import extraShape02 from 'assets/images/hero-extra-shape-02.svg'
 import Button from 'components/Button/Button'
+import scrollTo from 'utils/scrollTo'
+import Social from 'components/Social/Social'
 
 const HeroSection = styled(Section)`
   background: ${({ theme }) => theme.bg};
+  min-height: 600px;
   max-height: 900px;
   border-radius: 0 0 0 88px;
 `
@@ -144,6 +147,7 @@ const HeroImageShape = styled.div`
     background-image: url(${extraShape01});
     background-repeat: no-repeat;
     background-position: bottom right;
+    opacity: 0.4;
   }
 
   ::before {
@@ -156,10 +160,30 @@ const HeroImageShape = styled.div`
     background-image: url(${extraShape02});
     background-repeat: no-repeat;
     background-position: bottom right;
+    opacity: 0.4;
   }
 
   ${({ theme }) => theme.mq.tablet} {
     width: 42vw;
+  }
+`
+
+const StyledSocial = styled(Social)`
+  && {
+    ${({ theme }) => theme.mq.desktop} {
+      position: absolute;
+      left: 20vw;
+      bottom: 5vh;
+      display: flex;
+      align-items: center;
+      align-content: flex-start;
+      justify-content: space-between;
+      width: 220px;
+    }
+
+    ${({ theme }) => theme.mq.huge} {
+      display: none;
+    }
   }
 `
 
@@ -175,7 +199,7 @@ const HeroTemplate = () => {
             or heading text and start typing. You can copy and paste your own
             content in to see what it looks like with these font combinations.
           </P>
-          <HeroCTA>poznaj mnie</HeroCTA>
+          <HeroCTA onClick={e => scrollTo(e, '#o-mnie')}>poznaj mnie</HeroCTA>
         </HeroDescFlexItem>
         <HeroImageFlexItem>
           <HeroImageShape />
@@ -185,6 +209,7 @@ const HeroTemplate = () => {
           />
         </HeroImageFlexItem>
       </FlexWrapper>
+      <StyledSocial />
     </HeroSection>
   )
 }
