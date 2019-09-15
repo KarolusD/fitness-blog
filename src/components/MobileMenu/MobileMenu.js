@@ -1,28 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
-import { Link as GatsbyLink } from 'gatsby'
-import { Link } from 'react-scroll'
-import { Location } from '@reach/router'
+import { Link } from 'gatsby'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import Scrollspy from 'react-scrollspy'
 
 const Nav = styled.nav`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  margin-top: 80px;
   width: 100vw;
-  height: calc(100vh - 80px);
-  background-color: ${({ theme }) => theme.white};
+  height: 100vh;
+  background-color: ${({ theme }) => theme.bg};
   transform: translateX(${({ isOpen }) => (isOpen ? '0' : '100%')});
   transition: transform 300ms ease-out, background-color 300ms ease-out;
+  overflow: auto;
+  z-index: -1;
 
   ${({ theme }) => theme.mq.desktop} {
     display: none;
   }
 `
 
-const NavList = styled.ul`
+const NavList = styled(Scrollspy)`
   position: relative;
   top: 0;
   left: 0;
@@ -64,6 +64,12 @@ const ListItem = styled.li`
     opacity: 0;
     transition: opacity 200ms ease-in;
   }
+
+  &.active {
+    a {
+      ${linkStylesActive}
+    }
+  }
 `
 
 const linkStyles = css`
@@ -76,113 +82,53 @@ const linkStyles = css`
 
   &.active {
     color: ${({ theme }) => theme.blue};
+    transition: color 100ms 200ms ease-out;
   }
+`
+
+const linkStylesActive = css`
+  color: ${({ theme }) => theme.blue};
+  transition: color 100ms 200ms ease-out;
 `
 
 const ItemLink = styled(Link)`
   ${linkStyles}
-`
-
-const ItemLinkSubpage = styled(GatsbyLink)`
-  ${linkStyles}
+  &.active {
+    ${linkStylesActive}
+  }
 `
 
 const menuItems = ['home', 'o-mnie', 'oferta', 'blog', 'kontakt']
-
-const IfMenuLinkIsSubpage = ({ location, isOpen, handleLinkClick }) => {
-  if (location == '/') {
-    let homePageItems = menuItems.map((item, index) => {
-      if (item !== 'blog') {
-        return (
-          <CSSTransition
-            key={item}
-            in={isOpen}
-            classNames="show"
-            timeout={1000}
-            unmountOnExit
-          >
-            <ListItem delay={`${300 + index * 80}ms`}>
-              <ItemLink
-                onClick={handleLinkClick}
-                to={item}
-                spy
-                smooth
-                hashSpy
-                offset={-80}
-                duration={500}
-                delay={0}
-                isDynamic
-                activeClass="active"
-              >
-                {item.replace('-', ' ')}
-              </ItemLink>
-            </ListItem>
-          </CSSTransition>
-        )
-      } else {
-        return (
-          <CSSTransition
-            key={item}
-            in={isOpen}
-            classNames="show"
-            timeout={1000}
-            unmountOnExit
-          >
-            <ListItem delay={`${300 + index * 80}ms`}>
-              <ItemLinkSubpage
-                onClick={handleLinkClick}
-                to={`/${item}`}
-                activeClassName="active"
-              >
-                {item.replace('-', ' ')}
-              </ItemLinkSubpage>
-            </ListItem>
-          </CSSTransition>
-        )
-      }
-    })
-    return homePageItems
-  } else {
-    let subpageItems = menuItems.map((item, index) => {
-      return (
-        <CSSTransition
-          key={item}
-          in={isOpen}
-          classNames="show"
-          timeout={1000}
-          unmountOnExit
-        >
-          <ListItem delay={`${300 + index * 80}ms`}>
-            <ItemLinkSubpage
-              onClick={handleLinkClick}
-              to={item == 'blog' ? `/${item}` : `/#${item}`}
-              activeClassName="active"
-            >
-              {item}
-            </ItemLinkSubpage>
-          </ListItem>
-        </CSSTransition>
-      )
-    })
-    return subpageItems
-  }
-}
 
 const MobileMenu = ({ isOpen, handleLinkClick }) => {
   return (
     <TransitionGroup component={null}>
       <>
         <Nav isOpen={isOpen}>
-          <NavList>
-            <Location>
-              {({ location }) => (
-                <IfMenuLinkIsSubpage
-                  location={location.pathname}
-                  isOpen={isOpen}
-                  handleLinkClick={handleLinkClick}
-                />
-              )}
-            </Location>
+          <NavList items={menuItems} currentClassName="active" offset={-300}>
+            {menuItems.map((item, index) => (
+              <CSSTransition
+                key={item}
+                in={isOpen}
+                classNames="show"
+                timeout={1000}
+                unmountOnExit
+              >
+                <ListItem delay={`${300 + index * 80}ms`}>
+                  <ItemLink
+                    to={item !== 'blog' ? `/#${item}` : `/${item}`}
+                    onClick={
+                      item !== 'blog'
+                        ? e => handleLinkClick(e, `#${item}`)
+                        : undefined
+                    }
+                    activeClassName="active"
+                  >
+                    {item.replace('-', ' ')}
+                  </ItemLink>
+                </ListItem>
+              </CSSTransition>
+            ))}
           </NavList>
         </Nav>
       </>

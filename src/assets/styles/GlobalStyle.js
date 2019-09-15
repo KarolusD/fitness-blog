@@ -8,16 +8,24 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  
   html {
     font-size: 62.5%;
   }
+
   body {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.6rem;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    background: #F5F7FD;
   }
+
+  .lock-scroll {
+    overflow: hidden; 
+  }
+
   #___gatsby {
     overflow-x: hidden;
   }

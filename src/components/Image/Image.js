@@ -26,6 +26,7 @@ const Image = props => (
               childImageSharp {
                 fluid(maxWidth: 600, quality: 100) {
                   ...GatsbyImageSharpFluid_noBase64
+                  presentationWidth
                 }
               }
             }
@@ -41,8 +42,33 @@ const Image = props => (
         return null
       }
 
+      let normalizedProps = props
+      if (props.fluid && props.fluid.presentationWidth) {
+        normalizedProps = {
+          ...props,
+          style: {
+            ...(props.style || {}),
+            maxWidth: props.fluid.presentationWidth,
+            margin: '0 auto', // Used to center the image
+          },
+        }
+      }
+
       //const imageSizes = image.node.childImageSharp.sizes; sizes={imageSizes}
-      return <Img alt={props.alt} fluid={image.node.childImageSharp.fluid} />
+      return (
+        <Img
+          alt={props.alt}
+          fluid={image.node.childImageSharp.fluid}
+          {...normalizedProps}
+          imgStyle={{
+            objectFit: 'contain',
+          }}
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+          }}
+        />
+      )
     }}
   />
 )
@@ -50,6 +76,8 @@ const Image = props => (
 Image.propTypes = {
   alt: PropTypes.string.isRequired,
   filename: PropTypes.string.isRequired,
+  fluid: PropTypes.objectOf(PropTypes.array).isRequired,
+  style: PropTypes.objectOf(PropTypes.object).isRequired,
 }
 
 export default Image
