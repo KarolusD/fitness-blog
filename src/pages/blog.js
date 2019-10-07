@@ -1,51 +1,114 @@
 import React from 'react'
-import { Link, useStaticQuery, graphql } from 'gatsby'
-import Img from 'gatsby-image'
+import styled, { ThemeConsumer } from 'styled-components'
+import { graphql, StaticQuery } from 'gatsby'
 import MainTemplate from 'templates/MainTemplate/MainTemplate'
+import Section from 'components/Section/Section'
+import H1 from 'components/H1/H1'
+import PostItem from 'components/PostItem/PostItem'
+import { linkResolver } from 'utils/linkResolver'
+import { RichText, Date } from 'prismic-reactjs'
+import formatDate from 'utils/formatDate'
+import { withPreview } from 'gatsby-source-prismic-graphql'
 
-const slugify = require('utils/slugify')
+const BlogSection = styled(Section)`
+  padding: 120px 10vw;
 
-const blog = () => {
-  const blogQuery = useStaticQuery(graphql`
-    query {
-      allStrapiArticle(sort: { fields: date, order: DESC }) {
+  ${({ theme }) => theme.mq.tablet} {
+    padding: 180px 10vw;
+  }
+`
+
+const StyledH1 = styled(H1)`
+  position: relative;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  margin-bottom: 80px;
+
+  ${({ theme }) => theme.mq.tablet} {
+    margin-bottom: 100px;
+  }
+`
+
+const PostsList = styled.ul`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: auto;
+  max-width: 610px;
+  height: auto;
+  margin: 0 auto;
+  padding: 0;
+`
+
+const blogQuery = graphql`
+  {
+    prismic {
+      allBlogPosts(sortBy: meta_lastPublicationDate_DESC) {
         edges {
           node {
-            id
-            title
-            content
-            image {
-              childImageSharp {
-                fixed(width: 175, height: 125) {
-                  ...GatsbyImageSharpFixed
+            ... on PRISMIC_BlogPost {
+              title
+              date
+              image
+              imageSharp {
+                childImageSharp {
+                  fixed(width: 185, height: 248, quality: 100) {
+                    ...GatsbyImageSharpFixed
+                  }
                 }
               }
+              _meta {
+                uid
+                id
+                type
+                lang
+              }
             }
-            date(formatString: "D MMMM YYYY", locale: "PL")
           }
         }
       }
     }
-  `)
+  }
+`
 
+const blog = () => {
   return (
-    <MainTemplate>
-      <section style={{ paddingTop: '200px' }}>
-        <p>tutaj będą wszystkie posty i linki do nich</p>
-        <ul>
-          {blogQuery.allStrapiArticle.edges.map(post => (
-            <li key={post.node.id}>
-              <h2>
-                <Link to={`/blog/${slugify(post.node.title)}`}>
-                  {post.node.title}
-                </Link>
-              </h2>
-              <Img fixed={post.node.image.childImageSharp.fixed} />
-              <p>{post.node.date}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
+    <MainTemplate pageTitle="Blog">
+      <BlogSection height="auto">
+        <StyledH1 content="Wszystkie posty">Wszystkie posty</StyledH1>
+        <PostsList>
+          <ThemeConsumer>
+            {theme => (
+              <>
+                <StaticQuery
+                  query={blogQuery}
+                  render={withPreview(
+                    data =>
+                      data.prismic.allBlogPosts.edges.map(post => (
+                        <PostItem
+                          key={post.node.id}
+                          link
+                          to={linkResolver(post.node._meta)}
+                          image={post.node.imageSharp.childImageSharp.fixed}
+                          alt={post.node.image.alt}
+                          title={RichText.asText(post.node.title)}
+                          date={formatDate(Date(post.node.date))}
+                          arrowDisplay
+                          arrowColor={theme.blue}
+                          arrowText="czytaj więcej"
+                        />
+                      )),
+                    blogQuery
+                  )}
+                />
+              </>
+            )}
+          </ThemeConsumer>
+        </PostsList>
+      </BlogSection>
     </MainTemplate>
   )
 }

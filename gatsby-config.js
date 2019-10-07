@@ -1,5 +1,9 @@
 const path = require('path')
 
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `Fitness Blog`,
@@ -58,21 +62,37 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#ffffff`,
         display: `minimal-ui`,
-        icon: `src/assets/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/assets/images/favicon.svg`, // This path is relative to the root of the site.
       },
     },
+    // {
+    //   resolve: `gatsby-source-prismic`,
+    //   options: {
+    //     repositoryName: process.env.PRISMIC_REPOSITORY_NAME,
+    //     accessToken: process.env.PRISMIC_ACCESS_TOKEN,
+    //   },
+    // },
     {
-      resolve: `gatsby-source-strapi`,
+      resolve: 'gatsby-source-prismic-graphql',
       options: {
-        apiURL: process.env.DEPLOY_URL
-          ? 'https://strapi-gatsby-blog-cms.herokuapp.com'
-          : 'http://localhost:1337',
-        queryLimit: 1000, // Default to 100
-        contentTypes: [`article`, `user`],
+        repositoryName: process.env.PRISMIC_REPOSITORY_NAME, // (required)
+        accessToken: process.env.PRISMIC_ACCESS_TOKEN, // (optional)
+        path: '/preview', // (optional, default: /preview)
+        previews: true, // (optional, default: false)
+        pages: [
+          {
+            type: 'Blog-post',
+            match: '/blog/:uid',
+            path: '/blog-preview',
+            component: require.resolve(
+              './src/templates/ArticleTemplate/ArticleTemplate.js'
+            ),
+          },
+        ],
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    `gatsby-plugin-offline`,
+    // `gatsby-plugin-offline`,
   ],
 }

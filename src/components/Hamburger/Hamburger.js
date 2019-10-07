@@ -4,14 +4,16 @@ import PropTypes from 'prop-types'
 
 const OuterHamburger = styled.button`
   position: relative;
+  width: auto;
+  height: 40px;
   left: 16px;
   border: none;
   background: none;
   outline: none;
   box-shadow: none;
-  padding: 16px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+
   ${({ theme }) => theme.mq.desktop} {
     display: none;
   }
@@ -50,7 +52,7 @@ const InnerHamburger = styled.div`
 `
 
 const Hamburger = ({ isOpen, ...props }) => (
-  <OuterHamburger {...props}>
+  <OuterHamburger aria-label={isOpen ? 'close menu' : 'open menu'} {...props}>
     <InnerHamburger isOpen={isOpen} />
   </OuterHamburger>
 )

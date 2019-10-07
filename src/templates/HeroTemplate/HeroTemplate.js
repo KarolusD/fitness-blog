@@ -7,12 +7,15 @@ import extraShape02 from 'assets/images/hero-extra-shape-02.svg'
 import Button from 'components/Button/Button'
 import scrollTo from 'utils/scrollTo'
 import Social from 'components/Social/Social'
+import H1 from 'components/H1/H1'
+import BodyText from 'components/BodyText/BodyText'
+import ArrowLink from 'components/ArrowLink/ArrowLink'
 
 const HeroSection = styled(Section)`
   background: ${({ theme }) => theme.bg};
   min-height: 600px;
   max-height: 900px;
-  border-radius: 0 0 0 88px;
+  border-radius: 0 0 0 64px;
 `
 
 const FlexWrapper = styled.div`
@@ -31,22 +34,9 @@ const FlexWrapper = styled.div`
   }
 `
 
-const H1 = styled.h1`
-  font-family: ${({ theme }) => theme.font.family.pd};
-  font-weight: ${({ theme }) => theme.font.weight.bold};
-  font-size: ${({ theme }) => theme.font.size.mobile.h1};
-  color: ${({ theme }) => theme.black};
-  margin: 0;
-  margin-bottom: 12px;
-
-  ${({ theme }) => theme.mq.desktop} {
-    font-size: ${({ theme }) => theme.font.size.desktop.h1};
-  }
-`
-
 const H2 = styled.h2`
-  font-family: ${({ theme }) => theme.font.family.ms};
-  font-weight: ${({ theme }) => theme.font.weight.semibold};
+  font-family: ${({ theme }) => theme.font.family.rhd};
+  font-weight: ${({ theme }) => theme.font.weight.bold};
   font-size: ${({ theme }) => theme.font.size.mobile.body};
   letter-spacing: 0.3rem;
   line-height: 24px;
@@ -60,12 +50,8 @@ const H2 = styled.h2`
   }
 `
 
-const P = styled.p`
+const P = styled(BodyText)`
   display: none;
-  font-family: ${({ theme }) => theme.font.family.ms};
-  font-weight: ${({ theme }) => theme.font.weight.regular};
-  font-size: ${({ theme }) => theme.font.size.mobile.body};
-  color: ${({ theme }) => theme.black};
   line-height: 24px;
   max-width: 400px;
   margin: 0;
@@ -73,10 +59,6 @@ const P = styled.p`
 
   ${({ theme }) => theme.mq.tablet} {
     display: block;
-  }
-
-  ${({ theme }) => theme.mq.desktop} {
-    font-size: ${({ theme }) => theme.font.size.desktop.body};
   }
 
   ${({ theme }) => theme.mq.huge} {
@@ -92,7 +74,7 @@ const HeroCTA = styled(Button)`
   }
 `
 
-const HeroDescFlexItem = styled.div`
+const HeroDesc = styled.div`
   display: flex;
   flex-direction: column;
   height: auto;
@@ -109,7 +91,7 @@ const HeroDescFlexItem = styled.div`
     margin-left: 10vw;
   }
 `
-const HeroImageFlexItem = styled.div`
+const HeroImage = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -134,8 +116,8 @@ const HeroImageShape = styled.div`
   height: 85%;
   width: 50vw;
   background-color: ${({ theme }) => theme.blue};
-  border-radius: 88px 0 0 0;
-  clip-path: inset(0 round 88px 0 0 0);
+  border-radius: 64px 0 0 0;
+  clip-path: inset(0 round 64px 0 0 0);
 
   ::after {
     content: '';
@@ -180,9 +162,22 @@ const StyledSocial = styled(Social)`
       justify-content: space-between;
       width: 220px;
     }
+  }
+`
+
+const StyledArrow = styled(ArrowLink)`
+  &&& {
+    display: none;
+    position: absolute;
+    right: 8vw;
+    bottom: 2vh;
+
+    ${({ theme }) => theme.mq.desktop} {
+      display: flex;
+    }
 
     ${({ theme }) => theme.mq.huge} {
-      display: none;
+      right: 3vw;
     }
   }
 `
@@ -191,8 +186,8 @@ const HeroTemplate = () => {
   return (
     <HeroSection id="home" width="100vw" height="100vh">
       <FlexWrapper>
-        <HeroDescFlexItem>
-          <H1>Trener personalny</H1>
+        <HeroDesc>
+          <H1 content="Trener personalny">Trener personalny</H1>
           <H2>Klaudia Wolińska</H2>
           <P>
             All of this text is editable. Simply click anywhere in the paragraph
@@ -200,16 +195,22 @@ const HeroTemplate = () => {
             content in to see what it looks like with these font combinations.
           </P>
           <HeroCTA onClick={e => scrollTo(e, '#o-mnie')}>poznaj mnie</HeroCTA>
-        </HeroDescFlexItem>
-        <HeroImageFlexItem>
+        </HeroDesc>
+        <HeroImage>
           <HeroImageShape />
           <Image
             alt="Trener personalny – Klaudia Wolińska"
             filename="hero-img.png"
           />
-        </HeroImageFlexItem>
+        </HeroImage>
       </FlexWrapper>
       <StyledSocial />
+      <StyledArrow
+        to="/#o-mnie"
+        text="scrolluj w dół"
+        location="#o-mnie"
+        rotate="90deg"
+      />
     </HeroSection>
   )
 }

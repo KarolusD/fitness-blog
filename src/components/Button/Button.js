@@ -9,16 +9,18 @@ const Button = styled.button`
   background-color: transparent;
   border: 1px solid ${({ theme }) => theme.pink};
   color: ${({ theme }) => theme.pink};
-  font-family: ${({ theme }) => theme.font.family.ms};
-  font-weight: ${({ theme }) => theme.font.weight.semibold};
+  font-family: ${({ theme }) => theme.font.family.rhd};
+  font-weight: ${({ theme }) => theme.font.weight.bold};
   font-size: ${({ theme }) => theme.font.size.mobile.button};
   text-transform: lowercase;
+  letter-spacing: 0.05rem;
   cursor: pointer;
   box-shadow: none;
   outline: none;
   appearance: none;
   transition: transform 200ms ease-in-out;
 
+  :focus:before,
   :hover:before {
     transform: translate(12px, 12px);
   }
@@ -40,6 +42,10 @@ const Button = styled.button`
     top: -6px;
     left: -6px;
     background-color: ${({ theme }) => theme.lightPink};
+  }
+
+  ${({ theme }) => theme.mq.desktop} {
+    font-size: ${({ theme }) => theme.font.size.desktop.button};
   }
 `
 export default Button

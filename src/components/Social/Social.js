@@ -21,9 +21,10 @@ const StyledIcons = styled.div`
 `
 
 const P = styled.p`
-  font-family: ${({ theme }) => theme.font.family.ms};
+  font-family: ${({ theme }) => theme.font.family.rht};
   font-size: ${({ theme }) => theme.font.size.mobile.body};
   font-weight: ${({ theme }) => theme.font.weight.regular};
+  white-space: nowrap;
 `
 
 const StyledLink = styled.a`
@@ -31,15 +32,26 @@ const StyledLink = styled.a`
   color: ${({ theme }) => theme.black};
 `
 
+const StyledIcon = styled(Icon)`
+  svg path {
+    transition: fill 200ms ease-in-out;
+  }
+  :hover {
+    svg path {
+      fill: ${({ theme }) => theme.blue};
+    }
+  }
+`
+
 const Social = ({ className }) => {
   return (
     <StyledIcons className={className}>
       <P>odwiedź mnie na:</P>
       <StyledLink target="_blank" href="http://www.facebook.com">
-        <Icon src={fb} />
+        <StyledIcon src={fb} />
       </StyledLink>
       <StyledLink target="_blank" href="http://instagram.com">
-        <Icon src={insta} />
+        <StyledIcon src={insta} />
       </StyledLink>
     </StyledIcons>
   )

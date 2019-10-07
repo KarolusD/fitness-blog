@@ -78,8 +78,9 @@ const linkStyles = css`
   padding: 8px;
   text-decoration: none;
   text-transform: lowercase;
-  font-family: ${({ theme }) => theme.font.family.ms};
-  font-weight: ${({ theme }) => theme.font.weight.semibold};
+  font-family: ${({ theme }) => theme.font.family.rhd};
+  font-weight: ${({ theme }) => theme.font.weight.bold};
+  letter-spacing: 0.02rem;
   color: ${({ theme }) => theme.black};
   white-space: nowrap;
 

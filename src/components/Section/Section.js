@@ -8,6 +8,7 @@ const StyledSection = styled.section`
   left: 0;
   height: ${({ height }) => height};
   width: ${({ width }) => width};
+  min-height: 640px;
 `
 
 const Section = ({ id, width, height, children, className }) => {
@@ -21,13 +22,15 @@ const Section = ({ id, width, height, children, className }) => {
 Section.defaultProps = {
   width: '100vw',
   height: '100vh',
+  className: '',
+  id: null,
 }
 
 Section.propTypes = {
   width: PropTypes.string,
   height: PropTypes.string,
-  id: PropTypes.string.isRequired,
-  className: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 }
 

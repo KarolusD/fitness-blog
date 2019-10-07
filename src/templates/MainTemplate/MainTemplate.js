@@ -5,6 +5,7 @@ import GlobalStyle from 'assets/styles/GlobalStyle'
 import mainTheme from 'assets/styles/theme'
 import Header from 'components/Header/Header'
 import SEO from 'components/SEO/SEO'
+import Footer from 'components/Footer/Footer'
 
 const MainTemplate = ({ children, pageTitle }) => {
   return (
@@ -15,6 +16,7 @@ const MainTemplate = ({ children, pageTitle }) => {
         <>
           <Header />
           {children}
+          <Footer />
         </>
       </ThemeProvider>
     </>

@@ -1,33 +1,42 @@
-const slugify = require('./src/utils/slugify')
+// const path = require(`path`)
 
-const path = require(`path`)
+// module.exports.createPages = async ({ reporter, graphql, actions }) => {
+//   const { createPage } = actions
+//   const articleTemplate = path.resolve(
+//     './src/templates/ArticleTemplate/ArticleTemplate.js'
+//   )
+//   const res = await graphql(`
+//     query {
+//       prismic {
+//         allBlogPosts(sortBy: meta_lastPublicationDate_DESC) {
+//           edges {
+//             node {
+//               _meta {
+//                 id
+//                 uid
+//                 type
+//                 lang
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   `)
 
-module.exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
-  const articleTemplate = path.resolve(
-    './src/templates/ArticleTemplate/ArticleTemplate.js'
-  )
-  const res = await graphql(`
-    query {
-      allStrapiArticle {
-        edges {
-          node {
-            id
-            title
-          }
-        }
-      }
-    }
-  `)
+//   if (res.errors) {
+//     reporter.panic(res.errors)
+//   }
 
-  res.data.allStrapiArticle.edges.forEach(({ node }) => {
-    let pageName = slugify(node.title)
-    createPage({
-      component: articleTemplate,
-      path: `/blog/${pageName}`,
-      context: {
-        id: node.id,
-      },
-    })
-  })
-}
+//   res.data.allPrismicBlogPost.edges.forEach(({ node }) => {
+//     let pageName = node._meta.uid
+//     createPage({
+//       component: articleTemplate,
+//       path: `/blog/${pageName}`,
+//       context: {
+//         slug: node._meta.id,
+//         uid: node._meta.uid,
+//       },
+//     })
+//   })
+// }

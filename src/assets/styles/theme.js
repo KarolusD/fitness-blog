@@ -10,16 +10,17 @@ const mainTheme = {
   lightAzure: 'rgba(152, 186, 255, .08)',
   white: '#FFFFFF',
   bg: '#EEF2FE',
+  gray: '#CCCCCC',
 
   font: {
     family: {
-      ms: 'Montserrat, sans-serif',
-      pd: 'Playfair Display, serif',
+      rhd: 'Red Hat Display, sans-serif',
+      rdt: 'Red Hat Text, sans-serif',
     },
     weight: {
       regular: '400',
-      semibold: '600',
       bold: '700',
+      black: '900',
     },
     size: {
       desktop: {
@@ -32,7 +33,7 @@ const mainTheme = {
         h6: '1.5rem',
         body: '1.6rem',
         body2: '1.4rem',
-        button: '1.4rem',
+        button: '1.5rem',
         caption: '1.3rem',
       },
       mobile: {
@@ -55,7 +56,7 @@ const mainTheme = {
     desktop: '@media (min-width: 1024px)',
     tablet: '@media (min-width: 768px)',
     mobile: '@media (min-width: 360px)',
-    small: '@media (min-width: 320px)',
+    small: '@media (max-width: 359px)',
   },
 }
 

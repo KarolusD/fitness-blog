@@ -15,8 +15,7 @@ const Nav = styled.nav`
   background-color: ${({ theme }) => theme.bg};
   transform: translateX(${({ isOpen }) => (isOpen ? '0' : '100%')});
   transition: transform 300ms ease-out, background-color 300ms ease-out;
-  overflow: none;
-  z-index: -1;
+  z-index: 999;
 
   ${({ theme }) => theme.mq.desktop} {
     display: none;
@@ -65,6 +64,8 @@ const ListItem = styled.li`
   &.show-exit-active {
     opacity: 0;
     transition: opacity 200ms ease-in;
+    transition: transform 300ms cubic-bezier(0.48, 1.15, 0.57, 1.15),
+      opacity 300ms ease-out;
   }
 
   &.active a {
@@ -77,8 +78,9 @@ const linkStyles = css`
   padding: 8px;
   text-decoration: none;
   text-transform: lowercase;
-  font-family: ${({ theme }) => theme.font.family.ms};
-  font-weight: ${({ theme }) => theme.font.weight.semibold};
+  font-family: ${({ theme }) => theme.font.family.rhd};
+  font-weight: ${({ theme }) => theme.font.weight.bold};
+  letter-spacing: 0.02rem;
   color: ${({ theme }) => theme.black};
 
   &.active {
@@ -106,7 +108,14 @@ const StyledSocial = styled(Social)`
       align-items: center;
       justify-content: space-between;
       align-content: center;
-      transition: transform 300ms 600ms ease-out, opacity 200ms 600ms ease-out;
+      transition: transform
+          ${({ isOpen }) =>
+            isOpen
+              ? `300ms 600ms cubic-bezier(.48,1.15,.57,1.15)`
+              : `300ms cubic-bezier(.48,1.15,.57,1.15)`},
+        opacity
+          ${({ isOpen }) =>
+            isOpen ? `200ms 600ms ease-out` : `200ms ease-out`};
       opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
       transform: translateY(${({ isOpen }) => (isOpen ? 0 : '-100px')});
     }

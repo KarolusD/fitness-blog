@@ -4,7 +4,6 @@ import Hamburger from 'components/Hamburger/Hamburger'
 import MobileMenu from 'components/MobileMenu/MobileMenu'
 import Menu from 'components/Menu/Menu'
 import styled from 'styled-components'
-import Social from 'components/Social/Social'
 import scrollTo from 'utils/scrollTo'
 
 const FixedHeader = styled.header`
@@ -19,13 +18,26 @@ const FixedHeader = styled.header`
   height: 80px;
   background-color: ${({ theme }) => theme.bg};
   z-index: 1000;
-  border-radius: 0 0 0 88px;
+  border-radius: 0 0 0 64px;
+  overflow: hidden;
 
   ${({ theme }) => theme.mq.tablet} {
-    border-radius: 0 0 0 164px;
+    border-radius: 0 0 0 64px;
   }
 `
 
+const StyledLogo = styled(Logo)`
+  && {
+    svg path {
+      transition: all 200ms ease-in-out;
+    }
+    :hover {
+      svg path {
+        fill: ${({ theme }) => theme.blue};
+      }
+    }
+  }
+`
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -45,13 +57,14 @@ const Header = () => {
   }
 
   return (
-    <FixedHeader>
-      <Logo />
-      <Hamburger isOpen={isOpen} onClick={toggleMobileMenu} />
+    <>
+      <FixedHeader>
+        <StyledLogo />
+        <Hamburger isOpen={isOpen} onClick={toggleMobileMenu} />
+        <Menu handleLinkClick={handleLinkClick} />
+      </FixedHeader>
       <MobileMenu isOpen={isOpen} handleLinkClick={handleLinkClick} />
-      <Menu handleLinkClick={handleLinkClick} />
-      <Social />
-    </FixedHeader>
+    </>
   )
 }
 

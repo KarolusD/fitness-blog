@@ -1,67 +1,90 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { graphql } from 'gatsby'
-import Img from 'gatsby-image'
-import Reactmarkdown from 'react-markdown'
+// import styled from 'styled-components'
+// import { graphql } from 'gatsby'
+import MainTemplate from 'templates/MainTemplate/MainTemplate'
+// import Section from 'components/Section/Section'
+// import StyledReactMarkdown from 'components/StyledReactMarkdown/StyledReactMarkdown'
+// import PostItem from 'components/PostItem/PostItem'
+// import { linkResolver } from 'utils/linkResolver'
+// import { RichText, Date } from 'prismic-reactjs'
+// import formatDate from 'utils/formatDate'
 
-export const query = graphql`
-  query($id: String!) {
-    strapiArticle(id: { eq: $id }) {
-      title
-      content
-      image {
-        childImageSharp {
-          fixed(width: 200, height: 125) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      date(formatString: "D MMMM YYYY", locale: "PL")
-    }
-  }
-`
+// const ReactMarkdown = require('react-markdown/with-html')
 
-const StyledReactMarkdown = styled.div`
-  & > h1 {
-    color: red;
-  }
-  & > p {
-    color: green;
-  }
-`
+// const ArticleSection = styled(Section)`
+//   padding: 120px 10vw;
+
+//   ${({ theme }) => theme.mq.desktop} {
+//     padding: 240px 10vw;
+//   }
+// `
+
+// const StyledPostItem = styled(PostItem)`
+//   && {
+//     margin-bottom: 32px;
+//     pointer-events: none;
+//   }
+// `
+
+// const FlexWrapper = styled.div`
+//   position: relative;
+//   width: 100%;
+//   max-width: 680px;
+//   margin: 0 auto;
+//   display: flex;
+//   flex-direction: column;
+// `
+
+// export const query = graphql`
+//   query allPosts($uid: String!) {
+//     prismic {
+//       allBlogPosts(uid: $uid) {
+//         edges {
+//           node {
+//             _meta {
+//               id
+//               uid
+//               type
+//               lang
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// `
 
 const ArticleTemplate = ({ data }) => {
+  const doc = data.prismic.allBlogPosts.edges.slice(0, 1).pop()
+  if (!doc) return null
+
   return (
-    <section>
-      <h1>{data.strapiArticle.title}</h1>
-      <h3>{data.strapiArticle.date}</h3>
-      <Img fixed={data.strapiArticle.image.childImageSharp.fixed} />
-      <StyledReactMarkdown>
-        <Reactmarkdown
-          source={data.strapiArticle.content}
-          transformImageUri={uri =>
-            uri.startsWith('http') ? uri : `${process.env.IMAGE_BASE_URL}${uri}`
-          }
-        />
-      </StyledReactMarkdown>
-    </section>
+    <MainTemplate>
+      <div>
+        <h1>CHUJ</h1>
+      </div>
+    </MainTemplate>
   )
 }
 
-ArticleTemplate.propTypes = {
-  data: PropTypes.shape({
-    strapiArticle: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      image: PropTypes.shape({
-        childImageSharp: PropTypes.shape({
-          fixed: PropTypes.object.isRequired,
-        }).isRequired,
-      }).isRequired,
-    }).isRequired,
-  }).isRequired,
-}
-
+/* pageTitle={data.prismicBlogPost.uid.replace(/-/g, ' ')} */
+/* <ArticleSection height="auto">
+  <FlexWrapper>
+    <StyledPostItem
+      image={
+        data.prismicBlogPost.data.image.localFile.childImageSharp.fixed
+      }
+      alt={data.prismicBlogPost.data.image.alt}
+      title={data.prismicBlogPost.data.title.text}
+      date={data.prismicBlogPost.data.date}
+    />
+    <StyledReactMarkdown>
+      <ReactMarkdown
+        source={data.prismicBlogPost.data.content.html}
+        escapeHtml={false}
+      />
+    </StyledReactMarkdown>
+  </FlexWrapper>
+</ArticleSection> */
 export default ArticleTemplate

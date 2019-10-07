@@ -65,8 +65,9 @@ const Image = props => (
             objectFit: 'contain',
           }}
           style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
+            position: 'relative',
+            width: '100%',
+            height: '100%',
           }}
         />
       )
