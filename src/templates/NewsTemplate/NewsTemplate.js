@@ -6,10 +6,6 @@ import H1 from 'components/H1/H1'
 import ArrowLink from 'components/ArrowLink/ArrowLink'
 import Image from 'components/Image/Image'
 import PostItem from 'components/PostItem/PostItem'
-import { linkResolver } from 'utils/linkResolver'
-import { RichText, Date } from 'prismic-reactjs'
-import formatDate from 'utils/formatDate'
-import { withPreview } from 'gatsby-source-prismic-graphql'
 
 const NewsSection = styled(Section)`
   padding: 180px 10vw 10vh 10vw;
@@ -131,26 +127,27 @@ const BlogShortcut = styled.div`
 
 const newsQuery = graphql`
   {
-    prismic {
-      allBlogPosts(sortBy: meta_lastPublicationDate_DESC, first: 2) {
-        edges {
-          node {
-            ... on PRISMIC_BlogPost {
-              title
-              date
-              image
-              imageSharp {
+    allPrismicBlogPost(
+      sort: { fields: last_publication_date, order: DESC }
+      limit: 2
+    ) {
+      edges {
+        node {
+          id
+          uid
+          data {
+            date(formatString: "D MMMM YYYY", locale: "pl")
+            title {
+              text
+            }
+            image {
+              alt
+              localFile {
                 childImageSharp {
                   fixed(width: 185, height: 248, quality: 100) {
                     ...GatsbyImageSharpFixed
                   }
                 }
-              }
-              _meta {
-                uid
-                id
-                type
-                lang
               }
             }
           }
@@ -167,29 +164,25 @@ const NewsTemplate = () => {
     <NewsSection>
       <StyledH1 content="Najnowsze posty">Najnowsze posty</StyledH1>
       <PostsList>
-        <PostsList>
-          <StaticQuery
-            query={newsQuery}
-            render={withPreview(
-              data =>
-                data.prismic.allBlogPosts.edges.map(post => (
-                  <PostItem
-                    key={post.node.id}
-                    link
-                    to={linkResolver(post.node._meta)}
-                    image={post.node.imageSharp.childImageSharp.fixed}
-                    alt={post.node.image.alt}
-                    title={RichText.asText(post.node.title)}
-                    date={formatDate(Date(post.node.date))}
-                    arrowDisplay
-                    arrowColor={themeContext.blue}
-                    arrowText="czytaj więcej"
-                  />
-                )),
-              newsQuery
-            )}
-          />
-        </PostsList>
+        <StaticQuery
+          query={newsQuery}
+          render={news =>
+            news.allPrismicBlogPost.edges.map(post => (
+              <PostItem
+                key={post.node.id}
+                link
+                to={`blog/${post.node.uid}`}
+                image={post.node.data.image.localFile.childImageSharp.fixed}
+                alt={post.node.data.image.alt}
+                title={post.node.data.title.text}
+                date={post.node.data.date}
+                arrowDisplay
+                arrowColor={themeContext.blue}
+                arrowText="czytaj więcej"
+              />
+            ))
+          }
+        />
       </PostsList>
       <BlogShortcut as={Link} to="/blog">
         <div className="my-blog-text">

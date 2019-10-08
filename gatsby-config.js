@@ -65,32 +65,32 @@ module.exports = {
         icon: `src/assets/images/favicon.svg`, // This path is relative to the root of the site.
       },
     },
-    // {
-    //   resolve: `gatsby-source-prismic`,
-    //   options: {
-    //     repositoryName: process.env.PRISMIC_REPOSITORY_NAME,
-    //     accessToken: process.env.PRISMIC_ACCESS_TOKEN,
-    //   },
-    // },
     {
-      resolve: 'gatsby-source-prismic-graphql',
+      resolve: `gatsby-source-prismic`,
       options: {
-        repositoryName: process.env.PRISMIC_REPOSITORY_NAME, // (required)
-        accessToken: process.env.PRISMIC_ACCESS_TOKEN, // (optional)
-        path: '/preview', // (optional, default: /preview)
-        previews: true, // (optional, default: false)
-        pages: [
-          {
-            type: 'Blog-post',
-            match: '/blog/:uid',
-            path: '/blog-preview',
-            component: require.resolve(
-              './src/templates/ArticleTemplate/ArticleTemplate.js'
-            ),
-          },
-        ],
+        repositoryName: process.env.PRISMIC_REPOSITORY_NAME,
+        accessToken: process.env.PRISMIC_ACCESS_TOKEN,
       },
     },
+    // {
+    //   resolve: 'gatsby-source-prismic-graphql',
+    //   options: {
+    //     repositoryName: process.env.PRISMIC_REPOSITORY_NAME, // (required)
+    //     accessToken: process.env.PRISMIC_ACCESS_TOKEN, // (optional)
+    //     path: '/preview', // (optional, default: /preview)
+    //     previews: true, // (optional, default: false)
+    //     pages: [
+    //       {
+    //         type: 'Blog-post',
+    //         match: '/blog/:uid',
+    //         path: '/blog-preview',
+    //         component: require.resolve(
+    //           './src/templates/ArticleTemplate/ArticleTemplate.js'
+    //         ),
+    //       },
+    //     ],
+    //   },
+    // },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

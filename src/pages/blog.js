@@ -5,10 +5,6 @@ import MainTemplate from 'templates/MainTemplate/MainTemplate'
 import Section from 'components/Section/Section'
 import H1 from 'components/H1/H1'
 import PostItem from 'components/PostItem/PostItem'
-import { linkResolver } from 'utils/linkResolver'
-import { RichText, Date } from 'prismic-reactjs'
-import formatDate from 'utils/formatDate'
-import { withPreview } from 'gatsby-source-prismic-graphql'
 
 const BlogSection = styled(Section)`
   padding: 120px 10vw;
@@ -45,26 +41,24 @@ const PostsList = styled.ul`
 
 const blogQuery = graphql`
   {
-    prismic {
-      allBlogPosts(sortBy: meta_lastPublicationDate_DESC) {
-        edges {
-          node {
-            ... on PRISMIC_BlogPost {
-              title
-              date
-              image
-              imageSharp {
+    allPrismicBlogPost(sort: { fields: last_publication_date, order: DESC }) {
+      edges {
+        node {
+          id
+          uid
+          data {
+            date(formatString: "D MMMM YYYY", locale: "pl")
+            title {
+              text
+            }
+            image {
+              alt
+              localFile {
                 childImageSharp {
                   fixed(width: 185, height: 248, quality: 100) {
                     ...GatsbyImageSharpFixed
                   }
                 }
-              }
-              _meta {
-                uid
-                id
-                type
-                lang
               }
             }
           }
@@ -85,24 +79,24 @@ const blog = () => {
               <>
                 <StaticQuery
                   query={blogQuery}
-                  render={withPreview(
-                    data =>
-                      data.prismic.allBlogPosts.edges.map(post => (
-                        <PostItem
-                          key={post.node.id}
-                          link
-                          to={linkResolver(post.node._meta)}
-                          image={post.node.imageSharp.childImageSharp.fixed}
-                          alt={post.node.image.alt}
-                          title={RichText.asText(post.node.title)}
-                          date={formatDate(Date(post.node.date))}
-                          arrowDisplay
-                          arrowColor={theme.blue}
-                          arrowText="czytaj więcej"
-                        />
-                      )),
-                    blogQuery
-                  )}
+                  render={blog =>
+                    blog.allPrismicBlogPost.edges.map(post => (
+                      <PostItem
+                        key={post.node.id}
+                        link
+                        to={`blog/${post.node.uid}`}
+                        image={
+                          post.node.data.image.localFile.childImageSharp.fixed
+                        }
+                        alt={post.node.data.image.alt}
+                        title={post.node.data.title.text}
+                        date={post.node.data.date}
+                        arrowDisplay
+                        arrowColor={theme.blue}
+                        arrowText="czytaj więcej"
+                      />
+                    ))
+                  }
                 />
               </>
             )}
