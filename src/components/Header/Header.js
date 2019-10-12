@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Logo from 'components/Logo/Logo'
 import Hamburger from 'components/Hamburger/Hamburger'
 import MobileMenu from 'components/MobileMenu/MobileMenu'
@@ -41,11 +41,13 @@ const StyledLogo = styled(Logo)`
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
 
-  if (isOpen) {
-    document.querySelector('body').classList.add('lock-scroll')
-  } else {
-    document.querySelector('body').classList.remove('lock-scroll')
-  }
+  useEffect(() => {
+    if (isOpen) {
+      document.querySelector('body').classList.add('lock-scroll')
+    } else {
+      document.querySelector('body').classList.remove('lock-scroll')
+    }
+  }, [isOpen])
 
   const toggleMobileMenu = () => {
     setIsOpen(!isOpen)

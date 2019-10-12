@@ -29,6 +29,7 @@ const GlobalStyle = createGlobalStyle`
 
   .lock-scroll {
     overflow: hidden; 
+    
   }
 
   #___gatsby {

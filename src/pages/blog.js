@@ -67,7 +67,6 @@ const blogQuery = graphql`
     }
   }
 `
-
 const blog = () => {
   return (
     <MainTemplate pageTitle="Blog">
@@ -84,7 +83,7 @@ const blog = () => {
                       <PostItem
                         key={post.node.id}
                         link
-                        to={`blog/${post.node.uid}`}
+                        to={`/blog/${post.node.uid}`}
                         image={
                           post.node.data.image.localFile.childImageSharp.fixed
                         }

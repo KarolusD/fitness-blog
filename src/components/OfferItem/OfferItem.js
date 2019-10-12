@@ -3,8 +3,12 @@ import styled from 'styled-components'
 import Image from 'components/Image/Image'
 import ArrowLink from 'components/ArrowLink/ArrowLink'
 import PropTypes from 'prop-types'
+import PopUp from 'components/PopUp/PopUp'
+import GoogleForm from 'components/GoogleForm/GoogleForm'
 
 const FlexWrapper = styled.div`
+  appearance: none;
+  text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -167,6 +171,7 @@ const StyledImage = styled(Image)`
 `
 
 const OfferItem = ({
+  id,
   title,
   offerList,
   firstPrice,
@@ -177,37 +182,57 @@ const OfferItem = ({
   background,
   alt,
   className,
+  openGoogleForm,
+  closeGoogleForm,
+  formTitle,
+  formSrc,
+  formHeight,
+  isFormOpen,
 }) => {
   return (
-    <FlexWrapper
-      className={className}
-      leftImage={leftImage}
-      background={background}
-    >
-      <OfferDesc leftImage={leftImage}>
-        <H2>{title}</H2>
-        <List>
-          {offerList.map(item => (
-            <ListItem leftImage={leftImage} key={item}>
-              {item}
-            </ListItem>
-          ))}
-        </List>
-        <PriceOffer>
-          <H3>{firstPrice}</H3>
-          <PriceOr leftImage={leftImage}>lub</PriceOr>
-          <H3>{secondPrice}</H3>
-        </PriceOffer>
-        <ArrowLink
-          text="wybierz ten pakiet"
-          style={{ width: '100%', pointerEvents: 'none' }}
-          color={color}
+    <>
+      <FlexWrapper
+        id={id}
+        role="button"
+        onClick={e => openGoogleForm(e)}
+        className={className}
+        leftImage={leftImage}
+        background={background}
+      >
+        <OfferDesc leftImage={leftImage}>
+          <H2>{title}</H2>
+          <List>
+            {offerList.map(item => (
+              <ListItem leftImage={leftImage} key={item}>
+                {item}
+              </ListItem>
+            ))}
+          </List>
+          <PriceOffer>
+            <H3>{firstPrice}</H3>
+            <PriceOr leftImage={leftImage}>lub</PriceOr>
+            <H3>{secondPrice}</H3>
+          </PriceOffer>
+          <ArrowLink
+            text="wybierz ten pakiet"
+            style={{ width: '100%', pointerEvents: 'none' }}
+            color={color}
+          />
+        </OfferDesc>
+        <OfferImage>
+          <StyledImage filename={imageName} alt={alt} leftImage={leftImage} />
+        </OfferImage>
+      </FlexWrapper>
+      <PopUp id="pop-up" isOpen={isFormOpen} closePopUp={closeGoogleForm}>
+        <GoogleForm
+          title={formTitle}
+          src={formSrc}
+          width="640"
+          height={formHeight}
+          style={{}}
         />
-      </OfferDesc>
-      <OfferImage>
-        <StyledImage filename={imageName} alt={alt} leftImage={leftImage} />
-      </OfferImage>
-    </FlexWrapper>
+      </PopUp>
+    </>
   )
 }
 
@@ -216,6 +241,7 @@ OfferItem.defaultProps = {
 }
 
 OfferItem.propTypes = {
+  id: PropTypes.string.isRequired,
   className: PropTypes.string,
   title: PropTypes.string.isRequired,
   offerList: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -226,6 +252,12 @@ OfferItem.propTypes = {
   color: PropTypes.string.isRequired,
   background: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
+  openGoogleForm: PropTypes.func.isRequired,
+  closeGoogleForm: PropTypes.func.isRequired,
+  formTitle: PropTypes.string.isRequired,
+  formSrc: PropTypes.string.isRequired,
+  formHeight: PropTypes.string.isRequired,
+  isFormOpen: PropTypes.bool.isRequired,
 }
 
 export default OfferItem

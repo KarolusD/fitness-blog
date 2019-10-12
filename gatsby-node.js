@@ -12,6 +12,12 @@ module.exports.createPages = async ({ reporter, graphql, actions }) => {
           node {
             id
             uid
+            data {
+              title {
+                text
+              }
+              date(formatString: "D MMMM YYYY", locale: "pl")
+            }
           }
         }
       }
@@ -22,7 +28,9 @@ module.exports.createPages = async ({ reporter, graphql, actions }) => {
     reporter.panic(res.errors)
   }
 
-  res.data.allPrismicBlogPost.edges.forEach(({ node }) => {
+  const posts = res.data.allPrismicBlogPost.edges
+
+  posts.forEach(({ node }, index) => {
     let pageName = node.uid
     createPage({
       component: articleTemplate,
@@ -30,6 +38,8 @@ module.exports.createPages = async ({ reporter, graphql, actions }) => {
       context: {
         slug: node.id,
         uid: node.uid,
+        next: index === 0 ? null : posts[index - 1].node,
+        prev: index === posts.length - 1 ? null : posts[index + 1].node,
       },
     })
   })

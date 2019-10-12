@@ -6,6 +6,7 @@ import MainTemplate from 'templates/MainTemplate/MainTemplate'
 import Section from 'components/Section/Section'
 import StyledReactMarkdown from 'components/StyledReactMarkdown/StyledReactMarkdown'
 import PostItem from 'components/PostItem/PostItem'
+import PrevPostLink from 'components/PrevPostLink/PrevPostLink'
 
 const ReactMarkdown = require('react-markdown/with-html')
 
@@ -32,6 +33,18 @@ const FlexWrapper = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+`
+
+const LinksWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+
+  ${({ theme }) => theme.mq.tablet} {
+    flex-direction: row;
+  }
 `
 
 export const query = graphql`
@@ -62,7 +75,7 @@ export const query = graphql`
   }
 `
 
-const ArticleTemplate = ({ data }) => {
+const ArticleTemplate = ({ data, pageContext }) => {
   return (
     <MainTemplate pageTitle={data.prismicBlogPost.uid.replace(/-/g, ' ')}>
       <ArticleSection height="auto">
@@ -81,6 +94,26 @@ const ArticleTemplate = ({ data }) => {
               escapeHtml={false}
             />
           </StyledReactMarkdown>
+          <LinksWrapper>
+            <PrevPostLink
+              linkTo={
+                pageContext.prev ? `/blog/${pageContext.prev.uid}` : undefined
+              }
+              title={pageContext.prev ? pageContext.prev.data.title.text : null}
+              date={pageContext.prev ? pageContext.prev.data.date : null}
+              inview={pageContext.prev ? true : false}
+            />
+            <PrevPostLink
+              linkTo={
+                pageContext.next ? `/blog/${pageContext.next.uid}` : undefined
+              }
+              title={pageContext.next ? pageContext.next.data.title.text : null}
+              date={pageContext.next ? pageContext.next.data.date : null}
+              inview={pageContext.next ? true : false}
+              next
+              text="następny post"
+            />
+          </LinksWrapper>
         </FlexWrapper>
       </ArticleSection>
     </MainTemplate>

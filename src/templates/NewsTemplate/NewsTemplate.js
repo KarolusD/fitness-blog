@@ -171,7 +171,7 @@ const NewsTemplate = () => {
               <PostItem
                 key={post.node.id}
                 link
-                to={`blog/${post.node.uid}`}
+                to={`/blog/${post.node.uid}`}
                 image={post.node.data.image.localFile.childImageSharp.fixed}
                 alt={post.node.data.image.alt}
                 title={post.node.data.title.text}
