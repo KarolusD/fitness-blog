@@ -47,10 +47,16 @@ const Social = ({ className }) => {
   return (
     <StyledIcons className={className}>
       <P>odwiedź mnie na:</P>
-      <StyledLink target="_blank" href="http://www.facebook.com">
+      <StyledLink
+        target="_blank"
+        href="https://www.facebook.com/Klaudia-Woli%C5%84ska-dieta-i-trening-112257933522277/"
+      >
         <StyledIcon src={fb} />
       </StyledLink>
-      <StyledLink target="_blank" href="http://instagram.com">
+      <StyledLink
+        target="_blank"
+        href="https://www.instagram.com/wolinskaa/?hl=pl"
+      >
         <StyledIcon src={insta} />
       </StyledLink>
     </StyledIcons>

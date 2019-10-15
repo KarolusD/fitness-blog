@@ -174,7 +174,7 @@ const ContactTemplate = () => {
               <P>klaudiawolinska1@gmail.com</P>
             </ContactLinksInner>
           </ContactLinks>
-          <ContactLinks target="_blank" href="https://m.me/klaudia.wolinska.9">
+          <ContactLinks target="_blank" href="http://m.me/112257933522277">
             <ContactLinksInner>
               <Icon src={messenger} />
               <P>@klaudiawolinka1</P>

@@ -31,7 +31,7 @@ const AboutMeDesc = styled.div`
 
   ${({ theme }) => theme.mq.tablet} {
     max-height: 100%;
-    max-width: 50%;
+    max-width: 100%;
     margin-bottom: 0;
   }
 `

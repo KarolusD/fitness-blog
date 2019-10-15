@@ -1,10 +1,12 @@
 import { normalize } from 'styled-normalize'
 import { createGlobalStyle } from 'styled-components'
+import animate from 'animate.css/animate.min.css'
 
 const GlobalStyle = createGlobalStyle`
 
   @import url('https://fonts.googleapis.com/css?family=Red+Hat+Display:700,900|Red+Hat+Text&display=swap&subset=latin-ext');
 
+  ${animate}
   ${normalize}
   *, *::before, *::after {
     box-sizing: border-box;

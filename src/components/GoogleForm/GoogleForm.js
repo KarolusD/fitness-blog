@@ -3,18 +3,21 @@ import PropTypes from 'prop-types'
 
 const GoogleForm = ({ title, src, width, height }) => {
   return (
-    <iframe
-      className="google-form"
-      title={title}
-      src={src}
-      width={width}
-      height={height}
-      frameBorder="0"
-      marginHeight="0"
-      marginWidth="0"
-    >
-      Ładuję…
-    </iframe>
+    <>
+      <iframe
+        onLoad={e => e.currentTarget.parentNode.scrollTo(0, 0)}
+        className="google-form"
+        title={title}
+        src={src}
+        width={width}
+        height={height}
+        frameBorder="0"
+        marginHeight="0"
+        marginWidth="0"
+      >
+        Ładuję…
+      </iframe>
+    </>
   )
 }
 

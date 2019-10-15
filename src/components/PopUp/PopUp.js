@@ -71,8 +71,8 @@ const CloseForm = styled.button`
   appearance: none;
   box-shadow: none;
   position: absolute;
-  top: 5vh;
-  right: 5vw;
+  top: 32px;
+  right: 64px;
   width: 40px;
   height: 40px;
   background: ${({ theme }) => theme.lightPink};

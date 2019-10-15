@@ -62,7 +62,7 @@ const P = styled(BodyText)`
   }
 
   ${({ theme }) => theme.mq.huge} {
-    max-width: 480px;
+    max-width: 450px;
   }
 `
 
@@ -106,6 +106,11 @@ const HeroImage = styled.div`
   ${({ theme }) => theme.mq.tablet} {
     width: 50%;
     max-height: 80%;
+  }
+  ${({ theme }) => theme.mq.huge} {
+    img {
+      left: -50px !important;
+    }
   }
 `
 
@@ -190,9 +195,10 @@ const HeroTemplate = () => {
           <H1 content="Trener personalny">Trener personalny</H1>
           <H2>Klaudia Wolińska</H2>
           <P>
-            All of this text is editable. Simply click anywhere in the paragraph
-            or heading text and start typing. You can copy and paste your own
-            content in to see what it looks like with these font combinations.
+            Każdy kiedyś zaczynał. Najważniejszy jest ten pierwszy krok!  Jeśli
+            chcesz poprawić swoją jakość życia, osiagnąć wymarzoną sylwetkę i
+            czuć się zdrowo w swoim ciele, dobrze trafiłeś. Mogę Ci pomóc w
+            łatwy sposób z Twoim rozwojem, dietą i treningiem.
           </P>
           <HeroCTA onClick={e => scrollTo(e, '#o-mnie')}>poznaj mnie</HeroCTA>
         </HeroDesc>
