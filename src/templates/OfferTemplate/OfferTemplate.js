@@ -55,19 +55,19 @@ const OfferTemplate = () => {
 
   const DIET_FORM = [
     'https://docs.google.com/forms/d/e/1FAIpQLSeb-juteqPWdel4tTzIZvtIp-a2W-Dq82wXduQ8PACPgSWuzw/viewform?embedded=true',
-    '2800',
+    '3200',
     'dieta-online',
   ]
 
   const WORKOUT_FORM = [
     'https://docs.google.com/forms/d/e/1FAIpQLScv675a-7kUq_qL8AP-Cdw1YeixwTFkishHpp2rKuxotygdxA/viewform?embedded=true',
-    '3500',
+    '3900',
     'trening-online',
   ]
 
   const DIET_AND_WORKOUT_FORM = [
     'https://docs.google.com/forms/d/e/1FAIpQLSczx8x5wqWvo659s45azGbh1Mjx0ZQgskN7HHohq1XaFinp2Q/viewform?embedded=true',
-    '4450',
+    '4850',
     'dieta-i-trening-online',
   ]
 

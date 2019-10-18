@@ -9,6 +9,7 @@ import ScrollAnimation from 'react-animate-on-scroll'
 
 const BlogSection = styled(Section)`
   padding: 120px 10vw;
+  min-height: 100vh;
 
   ${({ theme }) => theme.mq.tablet} {
     padding: 180px 10vw;

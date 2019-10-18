@@ -19,9 +19,13 @@ const StyledH1 = styled(H1)`
   position: relative;
   left: 50%;
   top: 0;
-  margin-bottom: 108px;
+  margin-bottom: 80px;
   transform: translateX(-50%);
   white-space: nowrap;
+
+  ${({ theme }) => theme.mq.desktop} {
+    margin-bottom: 108px;
+  }
 `
 
 const H2 = styled.h2`
@@ -207,7 +211,7 @@ const ContactTemplate = () => {
             <ScrollAnimation animateIn="fadeInBottom" delay={800} animateOnce>
               <ContactLinksInner>
                 <Icon src={messenger} />
-                <P>@klaudia-wolinska-dieta-i-trening</P>
+                <P>@kw.dieta</P>
               </ContactLinksInner>
             </ScrollAnimation>
           </ContactLinks>

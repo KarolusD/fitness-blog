@@ -102,7 +102,7 @@ PrevPostLink.defaultProps = {
   title: '',
   date: '',
   inview: false,
-  linkTo: '',
+  linkTo: '/',
   next: false,
   text: 'poprzedni post',
 }

@@ -5,6 +5,7 @@ import Image from 'components/Image/Image'
 import H1 from 'components/H1/H1'
 import BodyText from 'components/BodyText/BodyText'
 import Button from 'components/Button/Button'
+import scrollTo from 'utils/scrollTo'
 import ScrollAnimation from 'react-animate-on-scroll'
 
 const FlexWrapper = styled.div`
@@ -17,7 +18,7 @@ const FlexWrapper = styled.div`
   align-items: flex-start;
   align-content: center;
   flex-direction: column;
-  padding: 0 10vw;
+  padding: 80px 10vw;
 
   ${({ theme }) => theme.mq.tablet} {
     flex-direction: row-reverse;
@@ -104,14 +105,17 @@ const AboutMeTemplate = () => {
           </ScrollAnimation>
           <ScrollAnimation animateIn="fadeInBottom" delay={300} animateOnce>
             <P>
-              All of this text is editable. Simply click anywhere in the
-              paragraph or heading text and start typing. You can copy and paste
-              your own content in to see what it looks like with these font
-              combinations.
+              Jestem certyfikowanym trenerem personalnym oraz dietetykiem.
+              Posiadam doświadczenie w treningach: TRX, kettlebell, siłowym,
+              kobiet ciężarnych, jak i również treningu domowym czy mobilizacji.
+              Przygotowuje diety dostosowane pod każdego podopiecznego
+              indywidualnie. Skupiamy się na wykonaniu celu w 100%.
             </P>
           </ScrollAnimation>
           <ScrollAnimation animateIn="fadeInBottom" delay={500} animateOnce>
-            <Button>moja przemiana</Button>
+            <Button type="button" onClick={e => scrollTo(e, '#oferta')}>
+              moja oferta
+            </Button>
           </ScrollAnimation>
         </AboutMeDesc>
         <AboutMeImage>
