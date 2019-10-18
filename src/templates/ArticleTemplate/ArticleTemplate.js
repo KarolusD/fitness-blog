@@ -54,6 +54,7 @@ export const query = graphql`
       uid
       data {
         image {
+          url
           alt
           localFile {
             childImageSharp {
@@ -68,6 +69,7 @@ export const query = graphql`
         }
         content {
           html
+          text
         }
         date(formatString: "D MMMM YYYY", locale: "pl")
       }
@@ -77,7 +79,13 @@ export const query = graphql`
 
 const ArticleTemplate = ({ data, pageContext }) => {
   return (
-    <MainTemplate pageTitle={data.prismicBlogPost.uid.replace(/-/g, ' ')}>
+    <MainTemplate
+      pageTitle={data.prismicBlogPost.uid.replace(/-/g, ' ')}
+      description={data.prismicBlogPost.data.content.text.substring(0, 200)}
+      url={`http://klaudiawolinska.pl/blog/${data.prismicBlogPost.uid}`}
+      type="article"
+      image={data.prismicBlogPost.data.image.url}
+    >
       <ArticleSection height="auto">
         <FlexWrapper>
           <StyledPostItem

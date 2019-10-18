@@ -12,6 +12,7 @@ const StyledFooter = styled.footer`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  z-index: 999;
 
   ${({ theme }) => theme.mq.tablet} {
     flex-direction: row;

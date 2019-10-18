@@ -6,23 +6,29 @@ import H1 from 'components/H1/H1'
 import ArrowLink from 'components/ArrowLink/ArrowLink'
 import Image from 'components/Image/Image'
 import PostItem from 'components/PostItem/PostItem'
+import ScrollAnimation from 'react-animate-on-scroll'
 
 const NewsSection = styled(Section)`
-  padding: 180px 10vw 10vh 10vw;
+  padding: 90px 10vw 10vh 10vw;
   height: auto;
   min-height: 640px;
 
   ${({ theme }) => theme.mq.desktop} {
-    padding: 240px 10vw 10vh 10vw;
+    padding: 120px 10vw 20vh 10vw;
   }
 `
 
 const StyledH1 = styled(H1)`
-  position: absolute;
+  position: relative;
   left: 50%;
-  top: 80px;
+  top: 0;
+  margin-bottom: 80px;
   transform: translateX(-50%);
   white-space: nowrap;
+
+  ${({ theme }) => theme.mq.tablet} {
+    margin-bottom: 108px;
+  }
 `
 
 const PostsList = styled.ul`
@@ -92,9 +98,25 @@ const BlogShortcut = styled.div`
     margin-top: 40px;
     position: relative;
     transition: transform 200ms ease-in-out;
+  }
+
+  ${({ theme }) => theme.mq.desktop} {
+    max-width: 610px;
+  }
+`
+
+const StyledImage = styled(Image)`
+  overflow: visible !important;
+  img {
+    border-radius: 2px;
+  }
+
+  ${({ theme }) => theme.mq.tablet} {
+    img {
+      border-radius: 0 0 64px 64px;
+    }
 
     ::before {
-      display: none;
       content: '';
       position: absolute;
       top: -16px;
@@ -104,24 +126,6 @@ const BlogShortcut = styled.div`
       background: ${({ theme }) => theme.lightRose};
       border-radius: 0 0 80px 80px;
     }
-
-    img {
-      border-radius: 2px;
-    }
-  }
-
-  ${({ theme }) => theme.mq.tablet} {
-    .my-blog-image::before {
-      display: block;
-    }
-
-    .my-blog-image img {
-      border-radius: 0 0 64px 64px;
-    }
-  }
-
-  ${({ theme }) => theme.mq.desktop} {
-    max-width: 610px;
   }
 `
 
@@ -162,7 +166,9 @@ const NewsTemplate = () => {
 
   return (
     <NewsSection>
-      <StyledH1 content="Najnowsze posty">Najnowsze posty</StyledH1>
+      <ScrollAnimation animateIn="fadeInBottom" animateOnce>
+        <StyledH1 content="Najnowsze posty">Najnowsze posty</StyledH1>
+      </ScrollAnimation>
       <PostsList>
         <StaticQuery
           query={newsQuery}
@@ -186,21 +192,29 @@ const NewsTemplate = () => {
       </PostsList>
       <BlogShortcut as={Link} to="/blog">
         <div className="my-blog-text">
-          <PostDate className="my-blog">mój blog</PostDate>
-          <PostTitle className="my-blog-title">
-            Interesujesz się dietą lub treningiem? Zobacz więcej moich postów
-          </PostTitle>
-          <ArrowLink
-            style={{ pointerEvents: 'none' }}
-            text="zobacz blog"
-            color={themeContext.pink}
-          />
+          <ScrollAnimation animateIn="fadeInBottom" animateOnce>
+            <PostDate className="my-blog">mój blog</PostDate>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn="fadeInBottom" delay={300} animateOnce>
+            <PostTitle className="my-blog-title">
+              Interesujesz się dietą lub treningiem? Zobacz więcej moich postów
+            </PostTitle>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn="fadeInBottom" delay={500} animateOnce>
+            <ArrowLink
+              style={{ pointerEvents: 'none' }}
+              text="zobacz blog"
+              color={themeContext.pink}
+            />
+          </ScrollAnimation>
         </div>
         <div className="my-blog-image">
-          <Image
-            filename="my-blog.png"
-            alt="lada kuchenna, na której jest talerz owoców, owsianka z owocami i kawa latte z posypką"
-          />
+          <ScrollAnimation animateIn="fadeInBottom" delay={700} animateOnce>
+            <StyledImage
+              filename="my-blog.png"
+              alt="lada kuchenna, na której jest talerz owoców, owsianka z owocami i kawa latte z posypką"
+            />
+          </ScrollAnimation>
         </div>
       </BlogShortcut>
     </NewsSection>

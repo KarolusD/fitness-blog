@@ -6,18 +6,20 @@ import H1 from 'components/H1/H1'
 import Icon from 'components/Icon/Icon'
 import mail from 'assets/images/mail.svg'
 import messenger from 'assets/images/messenger.svg'
+import ScrollAnimation from 'react-animate-on-scroll'
 
 const ContactSection = styled(Section)`
   background: ${({ theme }) => theme.bg};
-  padding: 180px 0 0 0;
+  padding: 90px 0 0 0;
   height: auto;
   min-height: 640px;
 `
 
 const StyledH1 = styled(H1)`
-  position: absolute;
+  position: relative;
   left: 50%;
-  top: 80px;
+  top: 0;
+  margin-bottom: 108px;
   transform: translateX(-50%);
   white-space: nowrap;
 `
@@ -72,17 +74,7 @@ const ContactImage = styled.div`
   width: 100%;
   max-width: 666px;
   position: relative;
-
-  ::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 85%;
-    bottom: 0;
-    left: 0;
-    background: ${({ theme }) => theme.blue};
-    border-radius: 0 64px 0 0px;
-  }
+  padding: 0 !important;
 
   ${({ theme }) => theme.mq.desktop} {
     width: 50%;
@@ -92,10 +84,23 @@ const ContactImage = styled.div`
     width: 70%;
     max-width: 800px;
     padding-left: 10vw;
+  }
+`
 
-    ::before {
-      width: 900px;
-    }
+const ContactImageShape = styled.div`
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 85%;
+  bottom: 0;
+  left: 0;
+  background: ${({ theme }) => theme.blue};
+  border-radius: 0 64px 0 0px;
+`
+
+const StyledImage = styled(Image)`
+  ${({ theme }) => theme.mq.desktop} {
+    margin-left: 144px;
   }
 `
 
@@ -150,35 +155,61 @@ const ContactLinksInner = styled.div`
 const ContactTemplate = () => {
   return (
     <ContactSection id="kontakt" height="auto">
-      <StyledH1 content="Skontaktuj się">Skontaktuj się</StyledH1>
+      <ScrollAnimation animateIn="fadeInBottom" animateOnce>
+        <StyledH1 content="Skontaktuj się">Skontaktuj się</StyledH1>
+      </ScrollAnimation>
       <StyledWrapper>
         <ContactImage>
-          <Image
-            filename="contact.png"
-            alt="Trener personalny – Klaudia Wolińska"
-          />
+          <ScrollAnimation
+            animateIn="fadeInLeftWow"
+            delay={300}
+            style={{
+              position: 'absolute',
+              bottom: '0',
+              left: '0',
+              height: '100%',
+              width: '100%',
+            }}
+            animateOnce
+          >
+            <ContactImageShape />
+          </ScrollAnimation>
+          <ScrollAnimation animateIn="fadeInLeftWow" delay={500} animateOnce>
+            <StyledImage
+              filename="contact.png"
+              alt="Trener personalny – Klaudia Wolińska"
+            />
+          </ScrollAnimation>
         </ContactImage>
         <ContactInfo>
-          <H2>Masz pytania? Napisz do mnie.</H2>
-          <P>
-            Jeśli masz jakiekolwiek wątpliwości odnoście współpracy ze mną,
-            diety czy treningu, pisz do mnie śmiało. Postaram się odpowiedzieć
-            na wszelkie pytania możliwie jak najszybciej.
-          </P>
+          <ScrollAnimation animateIn="fadeInBottom" delay={300} animateOnce>
+            <H2>Masz pytania? Napisz do mnie.</H2>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn="fadeInBottom" delay={500} animateOnce>
+            <P>
+              Jeśli masz jakiekolwiek wątpliwości odnoście współpracy ze mną,
+              diety czy treningu, pisz do mnie śmiało. Postaram się odpowiedzieć
+              na wszelkie pytania możliwie jak najszybciej.
+            </P>
+          </ScrollAnimation>
           <ContactLinks
             target="_blank"
             href="mailto:klaudiawolinska1@gmail.com"
           >
-            <ContactLinksInner>
-              <Icon src={mail} />
-              <P>klaudiawolinska1@gmail.com</P>
-            </ContactLinksInner>
+            <ScrollAnimation animateIn="fadeInBottom" delay={700} animateOnce>
+              <ContactLinksInner>
+                <Icon src={mail} />
+                <P>klaudiawolinska1@gmail.com</P>
+              </ContactLinksInner>
+            </ScrollAnimation>
           </ContactLinks>
           <ContactLinks target="_blank" href="http://m.me/112257933522277">
-            <ContactLinksInner>
-              <Icon src={messenger} />
-              <P>@klaudiawolinka1</P>
-            </ContactLinksInner>
+            <ScrollAnimation animateIn="fadeInBottom" delay={800} animateOnce>
+              <ContactLinksInner>
+                <Icon src={messenger} />
+                <P>@klaudia-wolinska-dieta-i-trening</P>
+              </ContactLinksInner>
+            </ScrollAnimation>
           </ContactLinks>
         </ContactInfo>
       </StyledWrapper>

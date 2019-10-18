@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import Image from 'components/Image/Image'
 import ArrowLink from 'components/ArrowLink/ArrowLink'
 import PropTypes from 'prop-types'
-import PopUp from 'components/PopUp/PopUp'
-import GoogleForm from 'components/GoogleForm/GoogleForm'
 
 const FlexWrapper = styled.div`
   appearance: none;
@@ -14,7 +12,8 @@ const FlexWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   position: relative;
-  margin: 80px auto;
+  margin: 80px auto !important;
+  margin-top: 0px !important;
   background: ${({ background }) => background};
   width: 80%;
   max-width: 480px;
@@ -40,7 +39,8 @@ const FlexWrapper = styled.div`
     max-width: 980px;
     width: calc(100% - 20vw);
     align-items: flex-start;
-    margin: 200px auto;
+    margin: 200px auto !important;
+    margin-top: 0px !important;
     padding-bottom: 0;
   }
 `
@@ -183,11 +183,6 @@ const OfferItem = ({
   alt,
   className,
   openGoogleForm,
-  closeGoogleForm,
-  formTitle,
-  formSrc,
-  formHeight,
-  isFormOpen,
 }) => {
   return (
     <>
@@ -223,15 +218,6 @@ const OfferItem = ({
           <StyledImage filename={imageName} alt={alt} leftImage={leftImage} />
         </OfferImage>
       </FlexWrapper>
-      <PopUp id="pop-up" isOpen={isFormOpen} closePopUp={closeGoogleForm}>
-        <GoogleForm
-          title={formTitle}
-          src={formSrc}
-          width="640"
-          height={formHeight}
-          style={{}}
-        />
-      </PopUp>
     </>
   )
 }
@@ -253,11 +239,6 @@ OfferItem.propTypes = {
   background: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
   openGoogleForm: PropTypes.func.isRequired,
-  closeGoogleForm: PropTypes.func.isRequired,
-  formTitle: PropTypes.string.isRequired,
-  formSrc: PropTypes.string.isRequired,
-  formHeight: PropTypes.string.isRequired,
-  isFormOpen: PropTypes.bool.isRequired,
 }
 
 export default OfferItem

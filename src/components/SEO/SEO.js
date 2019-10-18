@@ -20,8 +20,10 @@ function SEO({ description, lang, meta, title, url, type, image }) {
             title
             description
             author
+            leader
             url
             type
+            keywords
           }
         }
       }
@@ -32,6 +34,7 @@ function SEO({ description, lang, meta, title, url, type, image }) {
   const metaUrl = url || site.siteMetadata.url
   const metaType = type || site.siteMetadata.type
   const metaImg = image || ogimage
+  const metaKeywords = [...site.siteMetadata.keywords]
 
   return (
     <Helmet
@@ -41,6 +44,14 @@ function SEO({ description, lang, meta, title, url, type, image }) {
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
       meta={[
+        {
+          name: `author`,
+          content: site.siteMetadata.author,
+        },
+        {
+          name: `keywords`,
+          content: metaKeywords,
+        },
         {
           name: `description`,
           content: metaDescription,
@@ -71,7 +82,7 @@ function SEO({ description, lang, meta, title, url, type, image }) {
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.author,
+          content: site.siteMetadata.leader,
         },
         {
           name: `twitter:title`,

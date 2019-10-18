@@ -5,6 +5,7 @@ import Image from 'components/Image/Image'
 import H1 from 'components/H1/H1'
 import BodyText from 'components/BodyText/BodyText'
 import Button from 'components/Button/Button'
+import ScrollAnimation from 'react-animate-on-scroll'
 
 const FlexWrapper = styled.div`
   position: relative;
@@ -47,7 +48,27 @@ const AboutMeImage = styled.div`
   width: 100%;
   max-width: 400px;
 
-  :before {
+  ${({ theme }) => theme.mq.tablet} {
+    height: 100%;
+    width: 50%;
+    margin-right: 32px;
+  }
+
+  ${({ theme }) => theme.mq.desktop} {
+    margin-right: 64px;
+  }
+
+  ${({ theme }) => theme.mq.huge} {
+    margin-right: 88px;
+  }
+`
+
+const StyledImage = styled(Image)`
+  border-radius: 2px;
+  position: relative;
+  overflow: visible !important;
+
+  ::before {
     content: '';
     position: absolute;
     height: 100%;
@@ -61,28 +82,15 @@ const AboutMeImage = styled.div`
   }
 
   ${({ theme }) => theme.mq.tablet} {
-    height: 100%;
-    width: 50%;
-    margin-right: 32px;
-  }
-
-  ${({ theme }) => theme.mq.desktop} {
-    margin-right: 64px;
-    :before {
-      display: block;
+    img {
+      border-radius: 64px 0 0 0;
     }
   }
 
-  ${({ theme }) => theme.mq.huge} {
-    margin-right: 88px;
-  }
-`
-
-const StyledImage = styled(Image)`
-  border-radius: 2px;
-
-  ${({ theme }) => theme.mq.tablet} {
-    border-radius: 64px 0 0 0;
+  ${({ theme }) => theme.mq.desktop} {
+    ::before {
+      display: block;
+    }
   }
 `
 
@@ -91,19 +99,33 @@ const AboutMeTemplate = () => {
     <Section height="auto" id="o-mnie">
       <FlexWrapper>
         <AboutMeDesc>
-          <H1 content="Poznaj mnie">Poznaj mnie</H1>
-          <P>
-            All of this text is editable. Simply click anywhere in the paragraph
-            or heading text and start typing. You can copy and paste your own
-            content in to see what it looks like with these font combinations.
-          </P>
-          <Button>moja przemiana</Button>
+          <ScrollAnimation animateIn="fadeInBottom" animateOnce>
+            <H1 content="Poznaj mnie">Poznaj mnie</H1>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn="fadeInBottom" delay={300} animateOnce>
+            <P>
+              All of this text is editable. Simply click anywhere in the
+              paragraph or heading text and start typing. You can copy and paste
+              your own content in to see what it looks like with these font
+              combinations.
+            </P>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn="fadeInBottom" delay={500} animateOnce>
+            <Button>moja przemiana</Button>
+          </ScrollAnimation>
         </AboutMeDesc>
         <AboutMeImage>
-          <StyledImage
-            filename="about-me.png"
-            alt="Dziewczyna wykonująca trening na siłowni"
-          />
+          <ScrollAnimation
+            animateIn="fadeInBottom"
+            delay={300}
+            offset={300}
+            animateOnce
+          >
+            <StyledImage
+              filename="about-me.png"
+              alt="Dziewczyna wykonująca trening na siłowni"
+            />
+          </ScrollAnimation>
         </AboutMeImage>
       </FlexWrapper>
     </Section>

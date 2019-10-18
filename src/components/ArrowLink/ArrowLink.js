@@ -69,6 +69,7 @@ const P = styled.p`
   width: auto;
   margin: 0 16px;
   text-align: center;
+  white-space: nowrap;
   transition: transform 250ms cubic-bezier(0.51, 0.84, 0.32, 1.19);
 
   ${({ theme }) => theme.mq.desktop} {

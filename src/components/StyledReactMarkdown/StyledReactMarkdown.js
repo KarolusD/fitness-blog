@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const StyledRM = styled.div`
+  animation: fadeInBottom 800ms 400ms cubic-bezier(0.51, 0.84, 0.32, 1.19) both;
+
   & > h1,
   h2,
   h3,

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Img from 'gatsby-image'
 import ArrowLink from 'components/ArrowLink/ArrowLink'
 import { Link } from 'gatsby'
+import ScrollAnimation from 'react-animate-on-scroll'
 
 const Post = styled.div`
   text-decoration: none;
@@ -29,7 +30,7 @@ const Post = styled.div`
     }
   }
 
-  .post-image::before {
+  .post-image__photo::before {
     border-radius: 80px 0 0 0;
   }
 
@@ -42,7 +43,7 @@ const Post = styled.div`
       margin: 0;
     }
 
-    .post-image::before {
+    .post-image__photo::before {
       border-radius: 0 80px 0 0;
     }
   }
@@ -51,7 +52,7 @@ const Post = styled.div`
     align-items: center;
     max-width: 510px;
     flex-direction: row;
-    .post-image__photo {
+    .post-image__photo img {
       border-radius: 64px 0 0 0;
     }
     :nth-child(even) {
@@ -59,7 +60,7 @@ const Post = styled.div`
       .post-desc {
         margin: 0 64px 0 0;
       }
-      .post-image__photo {
+      .post-image__photo img {
         border-radius: 0 64px 0 0;
       }
     }
@@ -130,7 +131,13 @@ const PostImage = styled.div`
   ${({ theme }) => theme.mq.tablet} {
     width: auto;
     height: 100%;
+  }
+`
 
+const StyledImage = styled(Img)`
+  overflow: visible !important;
+
+  ${({ theme }) => theme.mq.tablet} {
     ::before {
       transition: transform 200ms ease-in-out;
       content: '';
@@ -159,17 +166,25 @@ const PostItem = ({
   return (
     <Post className={className} as={link ? Link : null} to={to}>
       <PostImage className="post-image">
-        <Img className="post-image__photo" fixed={image} alt={alt} />
+        <ScrollAnimation animateIn="fadeInBottom" delay={300} animateOnce>
+          <StyledImage className="post-image__photo" fixed={image} alt={alt} />
+        </ScrollAnimation>
       </PostImage>
       <PostDesc className="post-desc">
-        <PostDate>{date}</PostDate>
-        <PostTitle className="post-title">{title}</PostTitle>
-        <ArrowLink
-          style={{ pointerEvents: 'none' }}
-          text={arrowText}
-          color={arrowColor}
-          arrowDisplay={arrowDisplay}
-        />
+        <ScrollAnimation animateIn="fadeInBottom" animateOnce>
+          <PostDate>{date}</PostDate>
+        </ScrollAnimation>
+        <ScrollAnimation animateIn="fadeInBottom" delay={300} animateOnce>
+          <PostTitle className="post-title">{title}</PostTitle>
+        </ScrollAnimation>
+        <ScrollAnimation animateIn="fadeInBottom" delay={500} animateOnce>
+          <ArrowLink
+            style={{ pointerEvents: 'none' }}
+            text={arrowText}
+            color={arrowColor}
+            arrowDisplay={arrowDisplay}
+          />
+        </ScrollAnimation>
       </PostDesc>
     </Post>
   )

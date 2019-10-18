@@ -7,10 +7,23 @@ require('dotenv').config({
 module.exports = {
   siteMetadata: {
     title: `Fitness Blog`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    description: `Strona poświęcona diecie i trenigom online. Zawiera blog i artykuły o zdrowym odżywianiu, ćwiczeniach na siłowni i wiele innych.`,
     author: `@KarolusD`,
+    leader: `Klaudia Wolińska`,
     url: `https://klaudiawolinska.pl`,
     type: `website`,
+    keywords: [
+      `dieta`,
+      `trening`,
+      `Klaudia`,
+      `Wolińska`,
+      `fitness`,
+      `blog`,
+      `online`,
+      `trener`,
+      `personalny`,
+      `dietetyk`,
+    ],
   },
   plugins: [
     {
@@ -75,24 +88,34 @@ module.exports = {
       },
     },
     // {
-    //   resolve: 'gatsby-source-prismic-graphql',
+    //   resolve: 'gatsby-plugin-prismic-preview',
     //   options: {
-    //     repositoryName: process.env.PRISMIC_REPOSITORY_NAME, // (required)
-    //     accessToken: process.env.PRISMIC_ACCESS_TOKEN, // (optional)
-    //     path: '/preview', // (optional, default: /preview)
-    //     previews: true, // (optional, default: false)
-    //     pages: [
-    //       {
-    //         type: 'Blog-post',
-    //         match: '/blog/:uid',
-    //         path: '/blog-preview',
-    //         component: require.resolve(
-    //           './src/templates/ArticleTemplate/ArticleTemplate.js'
-    //         ),
-    //       },
-    //     ],
+    //     repositoryName: process.env.PRISMIC_REPOSITORY_NAME,
+    //     linkResolver(doc) {
+    //       if (doc.type === 'Blog-post') {
+    //         return `/blog/${doc.uid}`
+    //       }
+    //       return `${doc.type}`
+    //     },
+    //     path: '/preview',
     //   },
     // },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.GA_TRACKING_ID,
+        // Defines where to place the tracking script - `true` in the head and `false` in the body
+        head: false,
+        // Setting this parameter is optional
+        anonymize: true,
+        // Setting this parameter is also optional
+        respectDNT: true,
+        // Avoids sending pageview hits from custom paths
+        exclude: ['/preview/**'],
+        // Delays sending pageview hits on route update (in milliseconds)
+        pageTransitionDelay: 0,
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

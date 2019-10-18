@@ -10,6 +10,7 @@ import Social from 'components/Social/Social'
 import H1 from 'components/H1/H1'
 import BodyText from 'components/BodyText/BodyText'
 import ArrowLink from 'components/ArrowLink/ArrowLink'
+import ScrollAnimation from 'react-animate-on-scroll'
 
 const HeroSection = styled(Section)`
   background: ${({ theme }) => theme.bg};
@@ -100,6 +101,7 @@ const HeroImage = styled.div`
   max-height: 65%;
 
   img {
+    animation: fadeInBottom 600ms 400ms ease-out both;
     object-position: bottom left !important;
   }
 
@@ -123,6 +125,7 @@ const HeroImageShape = styled.div`
   background-color: ${({ theme }) => theme.blue};
   border-radius: 64px 0 0 0;
   clip-path: inset(0 round 64px 0 0 0);
+  animation: scaleUp 600ms 200ms cubic-bezier(0.51, 0.84, 0.32, 1.19) both;
 
   ::after {
     content: '';
@@ -192,15 +195,23 @@ const HeroTemplate = () => {
     <HeroSection id="home" width="100vw" height="100vh">
       <FlexWrapper>
         <HeroDesc>
-          <H1 content="Trener personalny">Trener personalny</H1>
-          <H2>Klaudia Wolińska</H2>
-          <P>
-            Każdy kiedyś zaczynał. Najważniejszy jest ten pierwszy krok!  Jeśli
-            chcesz poprawić swoją jakość życia, osiagnąć wymarzoną sylwetkę i
-            czuć się zdrowo w swoim ciele, dobrze trafiłeś. Mogę Ci pomóc w
-            łatwy sposób z Twoim rozwojem, dietą i treningiem.
-          </P>
-          <HeroCTA onClick={e => scrollTo(e, '#o-mnie')}>poznaj mnie</HeroCTA>
+          <ScrollAnimation animateIn="fadeInBottom" delay={200} animateOnce>
+            <H1 content="Trener personalny">Trener personalny</H1>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn="fadeInBottom" delay={400} animateOnce>
+            <H2>Klaudia Wolińska</H2>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn="fadeInBottom" delay={600} animateOnce>
+            <P>
+              Każdy kiedyś zaczynał. Najważniejszy jest ten pierwszy krok! Jeśli
+              chcesz poprawić swoją jakość życia, osiagnąć wymarzoną sylwetkę i
+              czuć się zdrowo w swoim ciele, dobrze trafiłeś. Mogę Ci pomóc w
+              łatwy sposób z Twoim rozwojem, dietą i treningiem.
+            </P>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn="fadeInBottom" delay={800} animateOnce>
+            <HeroCTA onClick={e => scrollTo(e, '#o-mnie')}>poznaj mnie</HeroCTA>
+          </ScrollAnimation>
         </HeroDesc>
         <HeroImage>
           <HeroImageShape />
@@ -210,13 +221,27 @@ const HeroTemplate = () => {
           />
         </HeroImage>
       </FlexWrapper>
-      <StyledSocial />
-      <StyledArrow
-        to="/#o-mnie"
-        text="scrolluj w dół"
-        location="#o-mnie"
-        rotate="90deg"
-      />
+      <ScrollAnimation
+        animateIn="fadeInBottom"
+        delay={700}
+        offset={1000}
+        animateOnce
+      >
+        <StyledSocial />
+      </ScrollAnimation>
+      <ScrollAnimation
+        animateIn="fadeInBottom"
+        delay={700}
+        offset={1000}
+        animateOnce
+      >
+        <StyledArrow
+          to="/#o-mnie"
+          text="scrolluj w dół"
+          location="#o-mnie"
+          rotate="90deg"
+        />
+      </ScrollAnimation>
     </HeroSection>
   )
 }

@@ -5,6 +5,7 @@ import MainTemplate from 'templates/MainTemplate/MainTemplate'
 import Section from 'components/Section/Section'
 import H1 from 'components/H1/H1'
 import PostItem from 'components/PostItem/PostItem'
+import ScrollAnimation from 'react-animate-on-scroll'
 
 const BlogSection = styled(Section)`
   padding: 120px 10vw;
@@ -71,7 +72,9 @@ const blog = () => {
   return (
     <MainTemplate pageTitle="Blog">
       <BlogSection height="auto">
-        <StyledH1 content="Wszystkie posty">Wszystkie posty</StyledH1>
+        <ScrollAnimation animateIn="fadeInBottom" animateOnce>
+          <StyledH1 content="Wszystkie posty">Wszystkie posty</StyledH1>
+        </ScrollAnimation>
         <PostsList>
           <ThemeConsumer>
             {theme => (

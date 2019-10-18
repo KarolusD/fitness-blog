@@ -20,6 +20,7 @@ const FixedHeader = styled.header`
   z-index: 1000;
   border-radius: 0 0 0 64px;
   overflow: hidden;
+  animation: fadeInTop 600ms cubic-bezier(0.51, 0.84, 0.32, 1.19) both;
 
   ${({ theme }) => theme.mq.tablet} {
     border-radius: 0 0 0 64px;
@@ -28,6 +29,7 @@ const FixedHeader = styled.header`
 
 const StyledLogo = styled(Logo)`
   && {
+    animation: fadeInTop 600ms cubic-bezier(0.51, 0.84, 0.32, 1.19) both;
     svg path {
       transition: all 200ms ease-in-out;
     }
@@ -60,7 +62,7 @@ const Header = () => {
 
   return (
     <>
-      <FixedHeader>
+      <FixedHeader className="main-header">
         <StyledLogo />
         <Hamburger isOpen={isOpen} onClick={toggleMobileMenu} />
         <Menu handleLinkClick={handleLinkClick} />

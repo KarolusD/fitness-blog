@@ -29,11 +29,12 @@ const PopUpWrapper = styled.div`
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   justify-content: center;
   top: 0;
+  left: 0;
   width: 100vw;
   min-height: 100vh;
   height: 100%;
   margin: 0 auto;
-  z-index: 999999999;
+  z-index: 99999;
   overflow: auto;
   overflow-x: hidden;
 
@@ -72,7 +73,7 @@ const CloseForm = styled.button`
   box-shadow: none;
   position: absolute;
   top: 32px;
-  right: 64px;
+  right: 8%;
   width: 40px;
   height: 40px;
   background: ${({ theme }) => theme.lightPink};
@@ -110,9 +111,9 @@ const CloseForm = styled.button`
   }
 `
 
-const PopUp = ({ children, isOpen, closePopUp, id }) => {
+const PopUp = ({ children, isOpen, closePopUp, className }) => {
   return (
-    <PopUpWrapper id={id} isOpen={isOpen ? 1 : 0}>
+    <PopUpWrapper className={className} isOpen={isOpen ? 1 : 0}>
       <CloseForm type="button" onClick={closePopUp}>
         <BodyText>zamknij formularz</BodyText>
       </CloseForm>
@@ -123,10 +124,11 @@ const PopUp = ({ children, isOpen, closePopUp, id }) => {
 
 PopUp.defaultProps = {
   isOpen: false,
+  className: '',
 }
 
 PopUp.propTypes = {
-  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool,
   closePopUp: PropTypes.func.isRequired,
