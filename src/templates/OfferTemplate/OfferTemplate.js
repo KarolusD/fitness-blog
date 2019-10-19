@@ -87,17 +87,17 @@ const OfferTemplate = () => {
     allForms.forEach(form => {
       if (form.title === e.currentTarget.id) {
         form.style.display = 'block'
-        form.parentElement.style.display = 'flex'
+        form.parentElement.parentElement.style.display = 'flex'
       } else {
         form.style.display = 'none'
-        form.parentElement.style.display = 'none'
+        form.parentElement.parentElement.style.display = 'none'
       }
     })
   }
 
   const closeGoogleForm = e => {
     e.preventDefault()
-    e.currentTarget.parentElement.style.display = 'none'
+    e.currentTarget.parentElement.parentElement.style.display = 'none'
     setIsFormOpen(false)
   }
 

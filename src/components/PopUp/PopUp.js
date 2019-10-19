@@ -24,6 +24,7 @@ const bounce = keyframes`
     transform: scale(1)
   }
 `
+
 const PopUpWrapper = styled.div`
   position: fixed;
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
@@ -35,12 +36,11 @@ const PopUpWrapper = styled.div`
   height: 100%;
   margin: 0 auto;
   z-index: 99999;
-  overflow: auto;
-  overflow-x: hidden;
+  overflow: hidden;
 
   iframe {
     padding-top: 108px;
-    margin-bottom: 80px;
+    border-radius: 2px;
     width: 100vw;
     animation: ${bounce} 600ms cubic-bezier(0.51, 0.84, 0.32, 1.19),
       ${fadeIn} 400ms ease-in-out;
@@ -66,6 +66,16 @@ const PopUpWrapper = styled.div`
     animation: ${fadeIn} 600ms ease-in-out;
   }
 `
+
+const ScrollWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  top: 0;
+  left: 0;
+`
+
 const CloseForm = styled.button`
   border: none;
   outline: none;
@@ -114,10 +124,12 @@ const CloseForm = styled.button`
 const PopUp = ({ children, isOpen, closePopUp, className }) => {
   return (
     <PopUpWrapper className={className} isOpen={isOpen ? 1 : 0}>
-      <CloseForm type="button" onClick={closePopUp}>
-        <BodyText>zamknij formularz</BodyText>
-      </CloseForm>
-      {children}
+      <ScrollWrapper>
+        <CloseForm type="button" onClick={closePopUp}>
+          <BodyText>zamknij formularz</BodyText>
+        </CloseForm>
+        {children}
+      </ScrollWrapper>
     </PopUpWrapper>
   )
 }

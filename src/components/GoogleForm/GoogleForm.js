@@ -2,17 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const GoogleForm = ({ title, src, width, height }) => {
-  if (/Android/.test(window.navigator.appVersion)) {
-    window.addEventListener('resize', function() {
-      if (
-        document.activeElement.tagName == 'INPUT' ||
-        document.activeElement.tagName == 'TEXTAREA'
-      ) {
-        document.activeElement.scrollIntoView()
-      }
-    })
-  }
-
   return (
     <>
       <iframe
