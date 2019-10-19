@@ -6,7 +6,7 @@ import OfferTemplate from 'templates/OfferTemplate/OfferTemplate'
 import ContactTemplate from 'templates/ContactTemplate/ContactTemplate'
 import NewsTemplate from 'templates/NewsTemplate/NewsTemplate'
 // import ScrollAnimation from 'react-animate-on-scroll'
-import ogimage from 'assets/images/hero-img.png'
+import ogimage from 'assets/images/home-og.png'
 
 const IndexPage = () => (
   <MainTemplate
