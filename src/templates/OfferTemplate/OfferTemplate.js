@@ -142,7 +142,7 @@ const OfferTemplate = () => {
             firstPrice="70zł / 1 mies."
             secondPrice="150zł / 3 mies."
             leftImage
-            imageName="trening-online.png"
+            imageName="trening-on.png"
             color={themeContext.pink}
             background={themeContext.lightRose}
             alt="Dobry trening - człowiek podnoszący sztange"
