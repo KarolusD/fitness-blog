@@ -178,6 +178,12 @@ const StyledRM = styled.div`
     border-radius: 2px;
     margin: 16px 0;
   }
+
+  iframe {
+    width: 680px;
+    height: auto;
+    min-height: 400px;
+  }
 `
 
 const StyledReactMarkdown = ({ children }) => {
