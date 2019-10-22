@@ -210,7 +210,9 @@ const HeroTemplate = () => {
             </P>
           </ScrollAnimation>
           <ScrollAnimation animateIn="fadeInBottom" delay={800} animateOnce>
-            <HeroCTA onClick={e => scrollTo(e, '#o-mnie')}>poznaj mnie</HeroCTA>
+            <HeroCTA type="button" onClick={e => scrollTo(e, '#o-mnie')}>
+              poznaj mnie
+            </HeroCTA>
           </ScrollAnimation>
         </HeroDesc>
         <HeroImage>
