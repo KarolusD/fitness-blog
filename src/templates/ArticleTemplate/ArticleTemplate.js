@@ -81,6 +81,7 @@ export const query = graphql`
             items {
               content {
                 html
+                text
               }
             }
           }
@@ -111,10 +112,20 @@ const ArticleTemplate = ({ data, pageContext }) => {
     }
   })
 
+  const findDescription = elem => {
+    if (elem.__typename === 'PrismicPostBodyParapraph') {
+      return elem
+    }
+  }
+  const finalDesc = data.prismicPost.data.body.find(findDescription)
   return (
     <MainTemplate
       pageTitle={data.prismicPost.uid.replace(/-/g, ' ')}
-      description="siema"
+      description={
+        finalDesc
+          ? `${finalDesc.items[0].content.text.substring(0, 155)}...`
+          : 'Blog poświęcony zdrowemu odżywianiu i treningom personalnym oraz zawierający wiele ciekawostek z branży dietetycznej'
+      }
       url={`http://klaudiawolinska.pl/blog/${data.prismicPost.uid}`}
       type="article"
       image={data.prismicPost.data.image.url}
