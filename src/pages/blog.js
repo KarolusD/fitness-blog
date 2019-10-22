@@ -6,6 +6,7 @@ import Section from 'components/Section/Section'
 import H1 from 'components/H1/H1'
 import PostItem from 'components/PostItem/PostItem'
 import ScrollAnimation from 'react-animate-on-scroll'
+import ogimage from 'assets/images/my-blog.png'
 
 const BlogSection = styled(Section)`
   padding: 120px 10vw;
@@ -71,7 +72,13 @@ const blogQuery = graphql`
 `
 const blog = () => {
   return (
-    <MainTemplate pageTitle="Trener Personalny | Dieta i Trening">
+    <MainTemplate
+      pageTitle="Trener Personalny | Klaudia Wolińska | Dieta i Trening"
+      description="Blog poświęcony zdrowemu odżywianiu i treningom personalnym, zawierający wiele ciekawostek z branży dietetycznej"
+      url="http://klaudiawolinska.pl/blog"
+      type="website"
+      image={ogimage}
+    >
       <BlogSection height="auto">
         <ScrollAnimation animateIn="fadeInBottom" animateOnce>
           <StyledH1 content="Wszystkie posty">Wszystkie posty</StyledH1>

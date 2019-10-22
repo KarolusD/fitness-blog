@@ -10,7 +10,7 @@ import ogimage from 'assets/images/home-og.png'
 
 const IndexPage = () => (
   <MainTemplate
-    pageTitle="Trener Personalny | Dieta i Trening"
+    pageTitle="Trener Personalny | Klaudia Wolińska | Dieta i Trening"
     url="https://klaudiawolinska.pl"
     image={ogimage}
   >

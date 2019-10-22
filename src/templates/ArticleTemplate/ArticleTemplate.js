@@ -124,7 +124,7 @@ const ArticleTemplate = ({ data, pageContext }) => {
       description={
         finalDesc
           ? `${finalDesc.items[0].content.text.substring(0, 155)}...`
-          : 'Blog poświęcony zdrowemu odżywianiu i treningom personalnym oraz zawierający wiele ciekawostek z branży dietetycznej'
+          : 'Blog poświęcony zdrowemu odżywianiu i treningom personalnym, zawierający wiele ciekawostek z branży dietetycznej'
       }
       url={`http://klaudiawolinska.pl/blog/${data.prismicPost.uid}`}
       type="article"
