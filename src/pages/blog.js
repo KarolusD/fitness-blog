@@ -71,7 +71,7 @@ const blogQuery = graphql`
 `
 const blog = () => {
   return (
-    <MainTemplate pageTitle="Blog">
+    <MainTemplate pageTitle="Trener Personalny | Dieta i Trening">
       <BlogSection height="auto">
         <ScrollAnimation animateIn="fadeInBottom" animateOnce>
           <StyledH1 content="Wszystkie posty">Wszystkie posty</StyledH1>

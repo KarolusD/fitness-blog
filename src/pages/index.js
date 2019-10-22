@@ -10,13 +10,14 @@ import ogimage from 'assets/images/home-og.png'
 
 const IndexPage = () => (
   <MainTemplate
-    pageTitle="Home"
+    pageTitle="Trener Personalny | Dieta i Trening"
     url="https://klaudiawolinska.pl"
     image={ogimage}
   >
     <HeroTemplate />
     <AboutMeTemplate />
     <OfferTemplate />
+
     <NewsTemplate />
     <ContactTemplate />
   </MainTemplate>
