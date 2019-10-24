@@ -61,13 +61,13 @@ const OfferTemplate = () => {
 
   const WORKOUT_FORM = [
     'https://docs.google.com/forms/d/e/1FAIpQLScv675a-7kUq_qL8AP-Cdw1YeixwTFkishHpp2rKuxotygdxA/viewform?embedded=true',
-    '3900',
+    '4100',
     'trening-online',
   ]
 
   const DIET_AND_WORKOUT_FORM = [
     'https://docs.google.com/forms/d/e/1FAIpQLSczx8x5wqWvo659s45azGbh1Mjx0ZQgskN7HHohq1XaFinp2Q/viewform?embedded=true',
-    '4850',
+    '5100',
     'dieta-i-trening-online',
   ]
 
