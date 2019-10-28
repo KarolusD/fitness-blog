@@ -69,11 +69,11 @@ function SEO({ description, lang, meta, title, url, type, image }) {
           content: metaType,
         },
         {
-          name: `og:url`,
+          property: `og:url`,
           content: metaUrl,
         },
         {
-          name: `og:image`,
+          property: `og:image`,
           content: metaImg,
         },
         {
