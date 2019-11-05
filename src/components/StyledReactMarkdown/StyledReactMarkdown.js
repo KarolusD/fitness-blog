@@ -85,7 +85,7 @@ const StyledRM = styled.div`
     list-style: none;
     display: flex;
     flex-direction: column;
-    margin: 12px 0;
+    margin: 8px 0;
     padding: 0;
     padding-left: 24px;
     li {
@@ -96,7 +96,7 @@ const StyledRM = styled.div`
       color: ${({ theme }) => theme.black};
       line-height: 24px;
       letter-spacing: 0.02rem;
-      margin: 12px 0;
+      margin: 4px 0;
 
       ::before {
         content: '';
