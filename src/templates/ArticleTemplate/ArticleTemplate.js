@@ -49,7 +49,7 @@ const LinksWrapper = styled.div`
 
 export const query = graphql`
   query($slug: String!) {
-    prismicPost(id: { eq: $slug }) {
+    prismicBlogPost(id: { eq: $slug }) {
       id
       uid
       data {
@@ -64,70 +64,48 @@ export const query = graphql`
             }
           }
         }
+
         title {
           text
         }
 
-        date(formatString: "D MMMM YYYY", locale: "pl")
-        body {
-          ... on PrismicPostBodyContentParagraph {
-            primary {
-              heading {
-                html
-              }
-            }
-          }
-          ... on PrismicPostBodyParapraph {
-            items {
-              content {
-                html
-              }
-            }
-          }
+        content {
+          html
         }
+
+        description
+
+        date(formatString: "D MMMM YYYY", locale: "pl")
       }
     }
   }
 `
 
 const ArticleTemplate = ({ data, pageContext }) => {
-  const renderContent = data.prismicPost.data.body.map(elem => {
-    if (elem.__typename === 'PrismicPostBodyParapraph') {
-      return elem.items.map(item => (
-        <ReactMarkdown
-          key={Math.random()}
-          source={item.content.html}
-          escapeHtml={false}
-        />
-      ))
-    } else if (elem.__typename === 'PrismicPostBodyContentParagraph') {
-      return (
-        <ReactMarkdown
-          key={Math.random()}
-          source={elem.primary.heading.html}
-          escapeHtml={false}
-        />
-      )
-    }
-  })
-
   return (
     <MainTemplate
-      pageTitle={data.prismicPost.uid.replace(/-/g, ' ')}
-      description="siema"
-      url={`http://klaudiawolinska.pl/blog/${data.prismicPost.uid}`}
+      pageTitle={data.prismicBlogPost.uid.replace(/-/g, ' ')}
+      description={data.prismicBlogPost.data.description}
+      url={`http://klaudiawolinska.pl/blog/${data.prismicBlogPost.uid}`}
       type="article"
-      image={data.prismicPost.data.image.url}
+      image={data.prismicBlogPost.data.image.url}
     >
       <ArticleSection height="auto">
         <FlexWrapper>
           <StyledPostItem
-            image={data.prismicPost.data.image.localFile.childImageSharp.fixed}
-            alt={data.prismicPost.data.image.alt}
-            title={data.prismicPost.data.title.text}
-            date={data.prismicPost.data.date}
+            image={
+              data.prismicBlogPost.data.image.localFile.childImageSharp.fixed
+            }
+            alt={data.prismicBlogPost.data.image.alt}
+            title={data.prismicBlogPost.data.title.text}
+            date={data.prismicBlogPost.data.date}
           />
-          <StyledReactMarkdown>{renderContent}</StyledReactMarkdown>
+          <StyledReactMarkdown>
+            <ReactMarkdown
+              source={data.prismicBlogPost.data.content.html}
+              escapeHtml={false}
+            />
+          </StyledReactMarkdown>
           <LinksWrapper>
             <PrevPostLink
               linkTo={

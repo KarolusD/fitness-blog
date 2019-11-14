@@ -85,7 +85,7 @@ const StyledRM = styled.div`
     list-style: none;
     display: flex;
     flex-direction: column;
-    margin: 0;
+    margin: 16px 0;
     padding: 0;
     padding-left: 24px;
     li {

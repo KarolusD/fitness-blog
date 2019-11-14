@@ -7,7 +7,7 @@ module.exports.createPages = async ({ reporter, graphql, actions }) => {
   )
   const res = await graphql(`
     query {
-      allPrismicPost(sort: { fields: last_publication_date, order: DESC }) {
+      allPrismicBlogPost(sort: { fields: last_publication_date, order: DESC }) {
         edges {
           node {
             id
@@ -28,7 +28,7 @@ module.exports.createPages = async ({ reporter, graphql, actions }) => {
     reporter.panic(res.errors)
   }
 
-  const posts = res.data.allPrismicPost.edges
+  const posts = res.data.allPrismicBlogPost.edges
 
   posts.forEach(({ node }, index) => {
     let pageName = node.uid
@@ -38,8 +38,8 @@ module.exports.createPages = async ({ reporter, graphql, actions }) => {
       context: {
         slug: node.id,
         uid: node.uid,
-        next: index === 0 ? null : posts[index - 1].node,
-        prev: index === posts.length - 1 ? null : posts[index + 1].node,
+        prev: index === 0 ? null : posts[index - 1].node,
+        next: index === posts.length - 1 ? null : posts[index + 1].node,
       },
     })
   })

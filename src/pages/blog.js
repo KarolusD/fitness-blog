@@ -43,7 +43,7 @@ const PostsList = styled.ul`
 
 const blogQuery = graphql`
   {
-    allPrismicPost(sort: { fields: last_publication_date, order: DESC }) {
+    allPrismicBlogPost(sort: { fields: data___date, order: DESC }) {
       edges {
         node {
           id
@@ -83,7 +83,7 @@ const blog = () => {
                 <StaticQuery
                   query={blogQuery}
                   render={blog =>
-                    blog.allPrismicPost.edges.map(post => (
+                    blog.allPrismicBlogPost.edges.map(post => (
                       <PostItem
                         key={post.node.id}
                         link

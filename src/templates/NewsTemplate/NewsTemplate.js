@@ -131,10 +131,7 @@ const StyledImage = styled(Image)`
 
 const newsQuery = graphql`
   {
-    allPrismicPost(
-      sort: { fields: last_publication_date, order: DESC }
-      limit: 2
-    ) {
+    allPrismicBlogPost(sort: { fields: data___date, order: DESC }, limit: 2) {
       edges {
         node {
           id
@@ -173,7 +170,7 @@ const NewsTemplate = () => {
         <StaticQuery
           query={newsQuery}
           render={news =>
-            news.allPrismicPost.edges.map(post => (
+            news.allPrismicBlogPost.edges.map(post => (
               <PostItem
                 key={post.node.id}
                 link
