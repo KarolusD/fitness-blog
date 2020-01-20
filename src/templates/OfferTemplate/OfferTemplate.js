@@ -118,8 +118,8 @@ const OfferTemplate = () => {
               'cotygodniowy raport postępów',
               'zmiany uzależnione od potrzeb',
             ]}
-            firstPrice="80zł / 1 mies."
-            secondPrice="170zł / 3 mies."
+            firstPrice="90zł / 1 mies."
+            secondPrice="240zł / 3 mies."
             leftImage={false}
             imageName="dieta-online.png"
             color={themeContext.blue}
@@ -139,8 +139,8 @@ const OfferTemplate = () => {
               'cotygodniowy raport postępów',
               'zmiany uzależnione od potrzeb',
             ]}
-            firstPrice="70zł / 1 mies."
-            secondPrice="150zł / 3 mies."
+            firstPrice="80zł / 1 mies."
+            secondPrice="190zł / 3 mies."
             leftImage
             imageName="trening-on.png"
             color={themeContext.pink}
@@ -161,8 +161,8 @@ const OfferTemplate = () => {
               'cotygodniowy raport postępów',
               'zmiany uzależnione od potrzeb',
             ]}
-            firstPrice="130zł / 1 mies."
-            secondPrice="270zł / 3 mies."
+            firstPrice="150zł / 1 mies."
+            secondPrice="350zł / 3 mies."
             leftImage={false}
             imageName="dieta-i-trening-online.png"
             color={themeContext.blue}
