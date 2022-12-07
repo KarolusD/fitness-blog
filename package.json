@@ -57,7 +57,7 @@
     "gatsby-plugin-eslint": "^2.0.5",
     "gatsby-plugin-root-import": "^2.0.5",
     "husky": "^2.7.0",
-    "lint-staged": "^8.2.1",
+    "lint-staged": "^13.1.0",
     "prettier": "^1.18.2",
     "stylelint": "^10.1.0",
     "stylelint-bare-webpack-plugin": "^1.1.3",
